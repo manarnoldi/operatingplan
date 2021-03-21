@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectItem Type="Microsoft.VisualStudio.SharePoint.Module" DefaultFile="Elements.xml" SupportedTrustLevels="All" SupportedDeploymentScopes="Web, Site" xmlns="http://schemas.microsoft.com/VisualStudio/2010/SharePointTools/SharePointProjectItemModel">
+  <Files>
+    <ProjectItemFile Source="Elements.xml" Type="ElementManifest" />
+    <ProjectItemFile Source="src\Default.aspx" Target="src\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\App.js" Target="src\app\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\angular-datatables.min.js" Target="src\common\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-btn\add-btn.dir.js" Target="src\common\directives\add-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-btn\add-btn.tpl.html" Target="src\common\directives\add-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-document\add-document.dir.js" Target="src\common\directives\add-document\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\add-document\add-document.tpl.html" Target="src\common\directives\add-document\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\admin-menu\admin-menu.dir.js" Target="src\common\directives\admin-menu\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\admin-menu\admin-menu.tpl.html" Target="src\common\directives\admin-menu\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\angular-growl.min.js" Target="src\common\directives\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\back-btn\back-btn.dir.js" Target="src\common\directives\back-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\back-btn\back-btn.tpl.html" Target="src\common\directives\back-btn\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\ng-file-model.js" Target="src\common\directives\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\pagination\dirPagination.js" Target="src\common\directives\pagination\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\pagination\dirPagination.tpl.html" Target="src\common\directives\pagination\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\spinner\loading-spinner.css" Target="src\common\directives\spinner\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\spinner\loading-spinner.js" Target="src\common\directives\spinner\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\ui-bootstrap-dialogs.js" Target="src\common\directives\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\jquery.dataTables.min.js" Target="src\common\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.css" Target="src\common\people-picker\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\people-picker\sp-peoplepicker.min.js" Target="src\common\people-picker\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\utilities\sp-ng-module.js" Target="src\common\utilities\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\utilities\utilities.js" Target="src\common\utilities\" Type="ElementFile" />
+    <ProjectItemFile Source="src\images\sort_asc.png" Target="src\images\" Type="ElementFile" />
+    <ProjectItemFile Source="src\images\sort_both.png" Target="src\images\" Type="ElementFile" />
+    <ProjectItemFile Source="src\images\sort_desc.png" Target="src\images\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\angular-datatables.min.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\angular-growl.min.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\App.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\chat.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\dataTables.bootstrap.min.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\css\jquery.dataTables.min.css" Target="src\css\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\plans.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\plancategories.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\planactions.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planactions\planactions.js" Target="src\app\planactions\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planactions\planactions.tpl.html" Target="src\app\planactions\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\settings.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction.js" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction-update.html" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\actiontargets.js" Target="src\common\services\" Type="ElementFile" />
+  </Files>
+</ProjectItem>

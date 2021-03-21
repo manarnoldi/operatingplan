@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+  <Module Name="RootModule">
+    <File Path="src\Default.aspx" Url="src/Default.aspx" ReplaceContent="TRUE" />
+    <File Path="src\app\App.js" Url="src/app/App.js" ReplaceContent="TRUE" />
+    <File Path="src\common\angular-datatables.min.js" Url="src/common/angular-datatables.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\add-btn\add-btn.dir.js" Url="src/common/directives/add-btn/add-btn.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\add-btn\add-btn.tpl.html" Url="src/common/directives/add-btn/add-btn.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\add-document\add-document.dir.js" Url="src/common/directives/add-document/add-document.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\add-document\add-document.tpl.html" Url="src/common/directives/add-document/add-document.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\admin-menu\admin-menu.dir.js" Url="src/common/directives/admin-menu/admin-menu.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\admin-menu\admin-menu.tpl.html" Url="src/common/directives/admin-menu/admin-menu.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\angular-growl.min.js" Url="src/common/directives/angular-growl.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\back-btn\back-btn.dir.js" Url="src/common/directives/back-btn/back-btn.dir.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\back-btn\back-btn.tpl.html" Url="src/common/directives/back-btn/back-btn.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\ng-file-model.js" Url="src/common/directives/ng-file-model.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\pagination\dirPagination.js" Url="src/common/directives/pagination/dirPagination.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\pagination\dirPagination.tpl.html" Url="src/common/directives/pagination/dirPagination.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\spinner\loading-spinner.css" Url="src/common/directives/spinner/loading-spinner.css" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\spinner\loading-spinner.js" Url="src/common/directives/spinner/loading-spinner.js" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\ui-bootstrap-dialogs.js" Url="src/common/directives/ui-bootstrap-dialogs.js" ReplaceContent="TRUE" />
+    <File Path="src\common\jquery.dataTables.min.js" Url="src/common/jquery.dataTables.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\people-picker\sp-peoplepicker.min.css" Url="src/common/people-picker/sp-peoplepicker.min.css" ReplaceContent="TRUE" />
+    <File Path="src\common\people-picker\sp-peoplepicker.min.js" Url="src/common/people-picker/sp-peoplepicker.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\utilities\sp-ng-module.js" Url="src/common/utilities/sp-ng-module.js" ReplaceContent="TRUE" />
+    <File Path="src\common\utilities\utilities.js" Url="src/common/utilities/utilities.js" ReplaceContent="TRUE" />
+    <File Path="src\images\sort_asc.png" Url="src/images/sort_asc.png" ReplaceContent="TRUE" />
+    <File Path="src\images\sort_both.png" Url="src/images/sort_both.png" ReplaceContent="TRUE" />
+    <File Path="src\images\sort_desc.png" Url="src/images/sort_desc.png" ReplaceContent="TRUE" />
+    <File Path="src\css\angular-datatables.min.css" Url="src/css/angular-datatables.min.css" ReplaceContent="TRUE" />
+    <File Path="src\css\angular-growl.min.css" Url="src/css/angular-growl.min.css" ReplaceContent="TRUE" />
+    <File Path="src\css\App.css" Url="src/css/App.css" ReplaceContent="TRUE" />
+    <File Path="src\css\chat.css" Url="src/css/chat.css" ReplaceContent="TRUE" />
+    <File Path="src\css\dataTables.bootstrap.min.css" Url="src/css/dataTables.bootstrap.min.css" ReplaceContent="TRUE" />
+    <File Path="src\css\jquery.dataTables.min.css" Url="src/css/jquery.dataTables.min.css" ReplaceContent="TRUE" />
+    <File Path="src\common\services\plans.js" Url="src/common/services/plans.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\plancategories.js" Url="src/common/services/plancategories.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\planactions.js" Url="src/common/services/planactions.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planactions\planactions.js" Url="src/app/planactions/planactions.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planactions\planactions.tpl.html" Url="src/app/planactions/planactions.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\services\settings.js" Url="src/common/services/settings.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction.js" Url="src/app/planaction/planaction.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction-update.html" Url="src/app/planaction/planaction-update.html" ReplaceContent="TRUE" />
+    <File Path="src\common\services\actiontargets.js" Url="src/common/services/actiontargets.js" ReplaceContent="TRUE" />
+  </Module>
+</Elements>

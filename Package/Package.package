@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="edd76e6c-5d81-4fc5-a804-2914d1154871" 
+        solutionId="edd76e6c-5d81-4fc5-a804-2914d1154871" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="OperatingPlanApp"
+        sharePointProductVersion="16.0">
+  <features>
+        <featureReference itemId="fd52dd51-6902-4b24-8065-68c53e0597ed" />
+  </features>
+</package>

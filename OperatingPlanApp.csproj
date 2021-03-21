@@ -1,0 +1,152 @@
+﻿<Project ToolsVersion="16.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{54ED876B-97D0-44C5-AF82-95C544256750}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OperatingPlanApp</RootNamespace>
+    <AssemblyName>OperatingPlanApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetOfficeVersion>16.1</TargetOfficeVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <MinimumOfficeToolsVersion>12.2</MinimumOfficeToolsVersion>
+    <IncludeAssemblyInPackage>False</IncludeAssemblyInPackage>
+    <ProjectMode>SharePointApp</ProjectMode>
+    <AppFeaturePartId>{78904c78-584c-4fff-a41f-c9d2779738b4}</AppFeaturePartId>
+    <WspPartId>{af616945-8e84-4271-8962-c1d94eaa700b}</WspPartId>
+    <WorkflowPartId>{8f91f32c-96f3-4b67-82d6-9f1db27cb8f2}</WorkflowPartId>
+    <CspkgPartId>{82563363-63d5-434f-9adc-ac4d254350e1}</CspkgPartId>
+    <SqlPackagePartId>{3e7176dd-2e1d-48b3-9e4e-23c1acd90e65}</SqlPackagePartId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Elements.xml" />
+    <Content Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="src\app\App.js" />
+    <Content Include="src\app\planactions\planactions.tpl.html" />
+    <Content Include="src\app\planactions\planactions.js" />
+    <Content Include="src\app\planaction\planaction.js" />
+    <Content Include="src\app\planaction\planaction-update.html" />
+    <Content Include="src\common\angular-datatables.min.js" />
+    <Content Include="src\common\directives\add-btn\add-btn.dir.js" />
+    <Content Include="src\common\directives\add-btn\add-btn.tpl.html" />
+    <Content Include="src\common\directives\add-document\add-document.dir.js" />
+    <Content Include="src\common\directives\add-document\add-document.tpl.html" />
+    <Content Include="src\common\directives\admin-menu\admin-menu.dir.js" />
+    <Content Include="src\common\directives\admin-menu\admin-menu.tpl.html" />
+    <Content Include="src\common\directives\angular-growl.min.js" />
+    <Content Include="src\common\directives\back-btn\back-btn.dir.js" />
+    <Content Include="src\common\directives\back-btn\back-btn.tpl.html" />
+    <Content Include="src\common\directives\ng-file-model.js" />
+    <Content Include="src\common\directives\pagination\dirPagination.js" />
+    <Content Include="src\common\directives\pagination\dirPagination.tpl.html" />
+    <Content Include="src\common\directives\spinner\loading-spinner.css" />
+    <Content Include="src\common\directives\spinner\loading-spinner.js" />
+    <Content Include="src\common\directives\ui-bootstrap-dialogs.js" />
+    <Content Include="src\common\jquery.dataTables.min.js" />
+    <Content Include="src\common\people-picker\sp-peoplepicker.min.css" />
+    <Content Include="src\common\people-picker\sp-peoplepicker.min.js" />
+    <Content Include="src\common\services\actiontargets.js" />
+    <Content Include="src\common\services\plancategories.js" />
+    <Content Include="src\common\services\planactions.js" />
+    <Content Include="src\common\services\plans.js" />
+    <Content Include="src\common\services\settings.js" />
+    <Content Include="src\common\utilities\sp-ng-module.js" />
+    <Content Include="src\common\utilities\utilities.js" />
+    <Content Include="src\css\angular-datatables.min.css" />
+    <Content Include="src\css\angular-growl.min.css" />
+    <Content Include="src\css\App.css" />
+    <Content Include="src\css\chat.css" />
+    <Content Include="src\css\dataTables.bootstrap.min.css" />
+    <Content Include="src\css\jquery.dataTables.min.css" />
+    <Content Include="src\Default.aspx" />
+    <Content Include="src\images\sort_asc.png" />
+    <Content Include="src\images\sort_both.png" />
+    <Content Include="src\images\sort_desc.png" />
+    <None Include="packages.config" />
+    <None Include="Pages\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{75f6ec6c-29df-4c16-ab50-225502896936}</SharePointProjectItemId>
+    </None>
+    <Content Include="Pages\Elements.xml" />
+    <None Include="SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{d554f9f7-81d2-4065-b5c7-52a018d2b92b}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\jquery-3.4.1.min.map" />
+    <None Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <None Include="Scripts\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{3e7176dd-2e1d-48b3-9e4e-23c1acd90e65}</SharePointProjectItemId>
+    </None>
+    <Content Include="Scripts\Elements.xml" />
+    <Content Include="Scripts\App.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{112382f9-31f0-485e-a686-0aaf52eda1be}</SharePointProjectItemId>
+    </None>
+    <Content Include="Content\Elements.xml" />
+    <Content Include="Content\App.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\AppIcon.png">
+      <OpcRelationship>manifest-icon</OpcRelationship>
+    </Content>
+    <Content Include="Images\Elements.xml" />
+    <None Include="Images\SharePointProjectItem.spdata">
+      <SharePointProjectItemId>{9c5ef241-9857-4c00-ae7a-95d087334a8a}</SharePointProjectItemId>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package\Package.package">
+      <PackageId>{edd76e6c-5d81-4fc5-a804-2914d1154871}</PackageId>
+    </None>
+    <None Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </None>
+    <None Include="Features\Feature1\Feature1.feature">
+      <FeatureId>{fd52dd51-6902-4b24-8065-68c53e0597ed}</FeatureId>
+    </None>
+    <None Include="Features\Feature1\Feature1.Template.xml">
+      <DependentUpon>Feature1.feature</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <AppManifestFile Include="AppManifest.xml">
+      <SubType>Designer</SubType>
+    </AppManifestFile>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\SharePointTools\Microsoft.VisualStudio.SharePoint.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

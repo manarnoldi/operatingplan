@@ -1,0 +1,221 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <div class="well">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pull-left">
+                    <a href="#dashboard" class="btn btn-sm btn-success">
+                        <i class="fa fa-angle-double-left"></i>
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading pnl-heading">PLAN ACTION DETAILS</div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Plan Action:</label>
+                            <span class="form-control"> {{ctrl.action.actionno}}. {{ctrl.action.actionname}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Action Category:</label>
+                            <span class="form-control"> {{ctrl.action.category.title}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Accountable:</label>
+                            <span class="form-control"> {{ctrl.action.accountable}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Indicator:</label>
+                            <span class="form-control">{{ctrl.action.indicators}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Status:</label>
+                            <span class="form-control">{{ctrl.action.status}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading pnl-heading">YEAR TARGET DETAILS</div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right admin-add-btn">
+                            <a ng-href="ctrl.addYearTarget()" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus-circle"></i>
+                                Add Year Target
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contract-table">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width:80px;">Target Year</th>
+                                        <th style="min-width:250px;">Target Details</th>
+                                        <th style="min-width:100px;">Modified By</th>
+                                        <th style="min-width:100px;">Modified Date</th>
+                                        <th style="min-width:80px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="act in ctrl.actiontargets" ng-click="ctrl.showTargetOutputs()">
+                                        <td><span>{{act.year.title}}</span></td>
+                                        <td><span>{{act.target}}</span></td>
+                                        <td><span>{{act.updateby.title}}</span></td>
+                                        <td><span>{{act.updatedate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                        <td>
+                                            <div>
+                                                <a href="#" class="btn btn-warning btn-xs" title="Update Target">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a> |
+                                                <a href="#" class="btn btn-danger btn-xs" title="Delete Target">
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading pnl-heading">TARGET OUTPUTS</div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right admin-add-btn">
+                            <a ng-href="ctrl.addTargetOutput()" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus-circle"></i>
+                                Add Target Output
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contract-table">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width:250px;">Output</th>
+                                        <th style="min-width:100px;">Lead Team</th>
+                                        <th style="min-width:100px;">Individual Responsible</th>
+                                        <th style="min-width:100px;">Other Teams Required</th>
+                                        <th style="min-width:100px;">Modified By</th>
+                                        <th style="min-width:100px;">Modified Date</th>
+                                        <th style="min-width:80px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="out in ctrl.targetoutputs" ng-click="ctrl.showTargetOutputs()">
+                                        <td><span>{{out.output}}</span></td>
+                                        <td><span>{{out.leadteam}}</span></td>
+                                        <td><span>{{out.responsible.title}}</span></td>
+                                        <td><span>{{out.otherteams}}</span></td>
+                                        <td><span>{{out.modifiedby.title}}</span></td>
+                                        <td><span>{{out.modifieddate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                        <td>
+                                            <div>
+                                                <a href="#" class="btn btn-warning btn-xs" title="Update Output">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a> |
+                                                <a href="#" class="btn btn-danger btn-xs" title="Delete Output">
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading pnl-heading">QUARTER TARGET PROGRESS UPDATES</div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right admin-add-btn">
+                            <a ng-href="ctrl.addProgressUpdates()" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus-circle"></i>
+                                Add Quarter Progress
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contract-table">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width:100px;">Quarter</th>
+                                        <th style="min-width:200px;">Notes</th>
+                                        <th style="min-width:200px;">Progress</th>
+                                        <th style="min-width:50px;">ProgressNo</th>
+                                        <th style="min-width:100px;">Modified By</th>
+                                        <th style="min-width:100px;">Modified Date</th>
+                                        <th style="min-width:80px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="prog in ctrl.outputprogress" ng-click="ctrl.showProgressUpdates()">
+                                        <td><span>{{prog.quarter}}</span></td>
+                                        <td><span>{{prog.notes}}</span></td>
+                                        <td><span>{{prog.progress}}</span></td>
+                                        <td><span>{{prog.progressno}}</span></td>
+                                        <td><span>{{prog.modifiedby.title}}</span></td>
+                                        <td><span>{{prog.modifieddate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                        <td>
+                                            <div>
+                                                <a href="#" class="btn btn-warning btn-xs" title="Update Progress">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a> |
+                                                <a href="#" class="btn btn-danger btn-xs" title="Delete Progress">
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

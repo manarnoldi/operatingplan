@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.0.0.1">
+  <ElementManifests>
+    <ElementManifest Location="Pages\Elements.xml" />
+    <ElementManifest Location="Scripts\Elements.xml" />
+    <ElementFile Location="Scripts\App.js" />
+    <ElementFile Location="Scripts\jquery-3.4.1.slim.min.map" />
+    <ElementFile Location="Scripts\jquery-3.4.1.slim.min.js" />
+    <ElementFile Location="Scripts\jquery-3.4.1.slim.js" />
+    <ElementFile Location="Scripts\jquery-3.4.1.min.map" />
+    <ElementFile Location="Scripts\jquery-3.4.1.min.js" />
+    <ElementFile Location="Scripts\jquery-3.4.1.js" />
+    <ElementFile Location="Scripts\jquery-3.4.1.intellisense.js" />
+    <ElementManifest Location="Content\Elements.xml" />
+    <ElementFile Location="Content\App.css" />
+    <ElementManifest Location="Images\Elements.xml" />
+    <ElementFile Location="Images\AppIcon.png" />
+    <ElementManifest Location="Elements.xml" />
+    <ElementFile Location="src\Default.aspx" />
+    <ElementFile Location="src\app\App.js" />
+    <ElementFile Location="src\common\angular-datatables.min.js" />
+    <ElementFile Location="src\common\directives\add-btn\add-btn.dir.js" />
+    <ElementFile Location="src\common\directives\add-btn\add-btn.tpl.html" />
+    <ElementFile Location="src\common\directives\add-document\add-document.dir.js" />
+    <ElementFile Location="src\common\directives\add-document\add-document.tpl.html" />
+    <ElementFile Location="src\common\directives\admin-menu\admin-menu.dir.js" />
+    <ElementFile Location="src\common\directives\admin-menu\admin-menu.tpl.html" />
+    <ElementFile Location="src\common\directives\angular-growl.min.js" />
+    <ElementFile Location="src\common\directives\back-btn\back-btn.dir.js" />
+    <ElementFile Location="src\common\directives\back-btn\back-btn.tpl.html" />
+    <ElementFile Location="src\common\directives\ng-file-model.js" />
+    <ElementFile Location="src\common\directives\pagination\dirPagination.js" />
+    <ElementFile Location="src\common\directives\pagination\dirPagination.tpl.html" />
+    <ElementFile Location="src\common\directives\spinner\loading-spinner.css" />
+    <ElementFile Location="src\common\directives\spinner\loading-spinner.js" />
+    <ElementFile Location="src\common\directives\ui-bootstrap-dialogs.js" />
+    <ElementFile Location="src\common\jquery.dataTables.min.js" />
+    <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.css" />
+    <ElementFile Location="src\common\people-picker\sp-peoplepicker.min.js" />
+    <ElementFile Location="src\common\utilities\sp-ng-module.js" />
+    <ElementFile Location="src\common\utilities\utilities.js" />
+    <ElementFile Location="src\images\sort_asc.png" />
+    <ElementFile Location="src\images\sort_both.png" />
+    <ElementFile Location="src\images\sort_desc.png" />
+    <ElementFile Location="src\css\angular-datatables.min.css" />
+    <ElementFile Location="src\css\angular-growl.min.css" />
+    <ElementFile Location="src\css\App.css" />
+    <ElementFile Location="src\css\chat.css" />
+    <ElementFile Location="src\css\dataTables.bootstrap.min.css" />
+    <ElementFile Location="src\css\jquery.dataTables.min.css" />
+    <ElementFile Location="src\common\services\plans.js" />
+    <ElementFile Location="src\common\services\plancategories.js" />
+    <ElementFile Location="src\common\services\planactions.js" />
+    <ElementFile Location="src\app\planactions\planactions.js" />
+    <ElementFile Location="src\app\planactions\planactions.tpl.html" />
+    <ElementFile Location="src\common\services\settings.js" />
+    <ElementFile Location="src\app\planaction\planaction.js" />
+    <ElementFile Location="src\app\planaction\planaction-update.html" />
+    <ElementFile Location="src\common\services\actiontargets.js" />
+  </ElementManifests>
+  <UpgradeActions>
+    <VersionRange>
+      <ApplyElementManifests>
+        <ElementManifest Location="Pages\Elements.xml" />
+        <ElementManifest Location="Scripts\Elements.xml" />
+        <ElementManifest Location="Content\Elements.xml" />
+        <ElementManifest Location="Images\Elements.xml" />
+        <ElementManifest Location="Elements.xml" />
+      </ApplyElementManifests>
+    </VersionRange>
+  </UpgradeActions>
+</Feature>
