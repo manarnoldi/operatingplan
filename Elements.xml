@@ -42,5 +42,8 @@
     <File Path="src\app\planaction\planaction.js" Url="src/app/planaction/planaction.js" ReplaceContent="TRUE" />
     <File Path="src\app\planaction\planaction-update.html" Url="src/app/planaction/planaction-update.html" ReplaceContent="TRUE" />
     <File Path="src\common\services\actiontargets.js" Url="src/common/services/actiontargets.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\years.js" Url="src/common/services/years.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction-target.html" Url="src/app/planaction/planaction-target.html" ReplaceContent="TRUE" />
+    <File Path="src\common\services\targetoutputs.js" Url="src/common/services/targetoutputs.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

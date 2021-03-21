@@ -51,6 +51,7 @@
     <Content Include="src\app\App.js" />
     <Content Include="src\app\planactions\planactions.tpl.html" />
     <Content Include="src\app\planactions\planactions.js" />
+    <Content Include="src\app\planaction\planaction-target.html" />
     <Content Include="src\app\planaction\planaction.js" />
     <Content Include="src\app\planaction\planaction-update.html" />
     <Content Include="src\common\angular-datatables.min.js" />
@@ -75,6 +76,8 @@
     <Content Include="src\common\services\actiontargets.js" />
     <Content Include="src\common\services\plancategories.js" />
     <Content Include="src\common\services\planactions.js" />
+    <Content Include="src\common\services\targetoutputs.js" />
+    <Content Include="src\common\services\years.js" />
     <Content Include="src\common\services\plans.js" />
     <Content Include="src\common\services\settings.js" />
     <Content Include="src\common\utilities\sp-ng-module.js" />

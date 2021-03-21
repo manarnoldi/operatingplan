@@ -1,0 +1,49 @@
+﻿<div class="col-md-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{passdata.update ? "Update": "Add"}} Action Annual Target</h3>
+        </div>
+        <form method="post" name="frm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label requiredField">Financial Year:<span class="asteriskField">*</span></label>
+                            <select ng-model="passdata.year"
+                                    ng-options="x.title for x in passdata.years track by x.id"
+                                    class="select form-control"
+                                    required
+                                    ng-disabled="passdata.update">
+                                <option value="" class="" selected="selected">-- Choose Financial Year --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label requiredField">Annual Target Details:<span class="asteriskField">*</span></label>
+                            <textarea class="form-control"
+                                      rows="8"
+                                      ng-model="passdata.target"
+                                      required>
+                                </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div>
+                        <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, passdata);" ng-disabled="!frm.$valid">
+                            {{passdata.update ? "Update": "Add"}} and close
+                        </button>
+                        <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

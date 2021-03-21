@@ -5,8 +5,8 @@
         .module('planactions', [])
         .controller('planactionsCtrl', PlanActionsCtrlFunction);
 
-    PlanActionsCtrlFunction.$inject = ['$q', '$dialogAlert', 'settingsSvc', 'planCategorySvc', 'plansSvc', 'planActionsSvc', 'spinnerService', 'growl'];
-    function PlanActionsCtrlFunction($q, $dialogAlert, settingsSvc, planCategorySvc, plansSvc, planActionsSvc, spinnerService, growl) {
+    PlanActionsCtrlFunction.$inject = ['$q', '$routeParams', '$dialogAlert', 'settingsSvc', 'planCategorySvc', 'plansSvc', 'planActionsSvc', 'spinnerService', 'growl'];
+    function PlanActionsCtrlFunction($q, $routeParams, $dialogAlert, settingsSvc, planCategorySvc, plansSvc, planActionsSvc, spinnerService, growl) {
         var ctrl = this;
         spinnerService.show('spinner1');
 
@@ -14,6 +14,9 @@
         ctrl.categoryinfluence = 0;
         ctrl.categorycapacity = 0;
         ctrl.categoriesall = 0;
+
+        var planid = parseInt($routeParams.planid);
+        var status = $routeParams.status;
 
         ctrl.planactions = [];
         ctrl.isAdmin = false;
@@ -26,15 +29,27 @@
         promises.push(settingsSvc.checkIfCurrentUserIsAdmin());
         promises.push(planCategorySvc.getAllItems());
         promises.push(plansSvc.getAllItems());
-
+       
+        if (planid) {
+            promises.push(planActionsSvc.getPlansSearched(planid, status));
+        }
+        
         $q
             .all(promises)
             .then(function (results) {
                 ctrl.isAdmin = results[0];
                 ctrl.plancategories = results[1];
                 ctrl.plans = results[2];
+                if (planid) {
+                    ctrl.plan = _.find(ctrl.plans, ['id', planid]);
+                    ctrl.planactions = results[3];
+                    ctrl.categoriesall = ctrl.planactions.length;
+                    ctrl.categoryimpact = LoadCategorySummary(ctrl.planactions, "PC001");
+                    ctrl.categoryinfluence = LoadCategorySummary(ctrl.planactions, "PC002");
+                    ctrl.categorycapacity = LoadCategorySummary(ctrl.planactions, "PC003");
+                }
                 ctrl.statuses = ["Active", "Suspended"];
-                ctrl.status = "Active";
+                status ? ctrl.status = status : ctrl.status = "";
             })
             .catch(function (error) {
                 growl.error(error);
@@ -70,12 +85,8 @@
                 return;
             }
             spinnerService.show('spinner1');
-            if (!ctrl.category) {
-                ctrl.category = "all";
-            }
-
             planActionsSvc
-                .getPlansSearched(ctrl.plan.id, ctrl.category.id, ctrl.status)
+                .getPlansSearched(ctrl.plan.id, ctrl.status)
                 .then(function (planactions) {
                     ctrl.planactions = planactions;
                     ctrl.categoriesall = planactions.length;

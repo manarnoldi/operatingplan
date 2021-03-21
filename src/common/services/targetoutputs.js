@@ -2,22 +2,22 @@
     'use strict';
 
     angular
-        .module('services.actiontargets', [])
-        .service('actionTargetsSvc', ActionTargetsSvc);
+        .module('services.targetoutputs', [])
+        .service('targetOutputsSvc', TargetOutputsSvc);
 
-    ActionTargetsSvc.$inject = ['$q', 'ShptRestService'];
-    function ActionTargetsSvc($q, ShptRestService) {
+    TargetOutputsSvc.$inject = ['$q', 'ShptRestService'];
+    function TargetOutputsSvc($q, ShptRestService) {
         var svc = this;
-        var listname = 'PlanActionYearTargets';
+        var listname = 'PlanActionYearTargetOutputs';
         svc.userid = _spPageContextInfo.userId;
         svc.usertitle = _spPageContextInfo.userDisplayName;
-        var actionTargetsList = null;
+        var targetOutputsList = null;
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
         svc.getAllItems = function (actionid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,Editor/Id,Editor/Title,Modified&"+
-            "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
+            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,Editor/Id,Editor/Title,Modified&" +
+                "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -53,7 +53,7 @@
             } else {
 
                 var data = {
-                    Title: target.actionno + "-"+ target.year.title +" Target",
+                    Title: target.actionno + "-" + target.year.title + " Target",
                     PlanActionId: target.actionid,
                     AnnualTarget: target.target,
                     TargetYearId: target.year.id

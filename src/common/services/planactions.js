@@ -130,27 +130,19 @@
             return defer.promise;
         };
 
-        svc.getPlansSearched = function (planid, categoryid, status) {
+        svc.getPlansSearched = function (planid, status) {
             var deferAction = $q.defer();
             svc
                 .getAllItems(planid)
                 .then(function (planactions) {
-                    if (!planid && !status) {
+                    if (!status) {
                         deferAction.resolve(planactions);
                     }
-                    else if (!categoryid && status) {
+                    else if (status) {
                         deferAction.resolve(_.filter(planactions, function (p) {
                             return p.status == status;
                         }));
-                    } else if (categoryid && !status) {
-                        deferAction.resolve(_.filter(planactions, function (p) {
-                            return p.category.id == categoryid;
-                        }));
-                    } else if (categoryid && status) {
-                        deferAction.resolve(_.filter(planactions, function (p) {
-                            return p.status == status && p.category.id == categoryid;
-                        }));
-                    }
+                    } 
                 })
                 .catch(function (error) {
                     deferAction.reject(error);

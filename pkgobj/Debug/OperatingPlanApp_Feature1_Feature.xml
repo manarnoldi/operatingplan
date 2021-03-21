@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.0.0.1">
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.0.0.3">
   <ElementManifests>
     <ElementManifest Location="Pages\Elements.xml" />
     <ElementManifest Location="Scripts\Elements.xml" />
@@ -57,6 +57,8 @@
     <ElementFile Location="src\app\planaction\planaction.js" />
     <ElementFile Location="src\app\planaction\planaction-update.html" />
     <ElementFile Location="src\common\services\actiontargets.js" />
+    <ElementFile Location="src\common\services\years.js" />
+    <ElementFile Location="src\app\planaction\planaction-target.html" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

@@ -10,12 +10,13 @@
         var svc = this;
         var listname = 'PlanActionYearTargets';
         svc.userid = _spPageContextInfo.userId;
+        svc.usertitle = _spPageContextInfo.userDisplayName;
         var actionTargetsList = null;
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
         svc.getAllItems = function (actionid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,Editor/Id,Editor/Title&"+
+            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,Editor/Id,Editor/Title,Modified&"+
             "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
             ShptRestService
                 .getListItems(listname, queryParams)
@@ -28,11 +29,11 @@
                         target.action = _.isNil(o.PlanAction) ? "" : { id: o.PlanAction.Id, title: o.PlanAction.Title };
                         target.target = o.AnnualTarget;
                         target.year = _.isNil(o.TargetYear) ? "" : { id: o.TargetYear.Id, title: o.TargetYear.Title };
-                        target.updateby = new Date(o.Modified);
-                        target.updatedate = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
+                        target.updatedate = new Date(o.Modified);
+                        target.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
                         actionTargetsList.push(target);
                     });
-                    defer.resolve(actionTargetsList);
+                    defer.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -41,91 +42,92 @@
             return defer.promise;
         };
 
-        //svc.AddItem = function (planaction) {
-        //    var defer = $q.defer();
-        //    var itemExists = _.some(planActionsList, function (p) {
-        //        return p.actionname == planaction.actionname && p.plan.id == planaction.plan.id;
-        //    });
+        svc.AddItem = function (target) {
+            var defer = $q.defer();
+            var itemExists = _.some(actionTargetsList, function (p) {
+                return target.actionid == p.action.id && target.year.id == p.year.id;
+            });
 
-        //    if (itemExists) {
-        //        defer.reject("The item specified already exists in the system. Contact IT Service desk for support.");
-        //    } else {
+            if (itemExists) {
+                defer.reject("The target action for the year is already submitted, kindly click update on the list to do an update. Contact IT Service desk for support.");
+            } else {
 
-        //        var data = {
-        //            Title: planaction.actionno + ".",
-        //            PlanId: planaction.plan.id,
-        //            ActionNo: planaction.actionno,
-        //            ActionName: planaction.actionname,
-        //            Accountable: planaction.accountable,
-        //            Indicators: planaction.indicators,
-        //            Status: planaction.status,
-        //            PlanCategoryId: planaction.category.id
-        //        };
+                var data = {
+                    Title: target.actionno + "-"+ target.year.title +" Target",
+                    PlanActionId: target.actionid,
+                    AnnualTarget: target.target,
+                    TargetYearId: target.year.id
+                };
 
-        //        ShptRestService
-        //            .createNewListItem(listname, data)
-        //            .then(function (response) {
-        //                planaction.id = response.ID;
-        //                planActionsList.push(planaction);
-        //                defer.resolve(_.orderBy(planActionsList, ['actionno'], ['asc']));
-        //            })
-        //            .catch(function (error) {
-        //                console.log(error);
-        //                defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
-        //            });
-        //    }
-        //    return defer.promise;
-        //};
+                ShptRestService
+                    .createNewListItem(listname, data)
+                    .then(function (response) {
+                        target.id = response.ID;
+                        target.updatedate = response.Created;
+                        target.updateby = { id: svc.userid, title: svc.usertitle };
+                        actionTargetsList.push(target);
+                        defer.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                    });
+            }
+            return defer.promise;
+        };
 
-        //svc.UpdateItem = function (planaction) {
-        //    var deferEdit = $q.defer();
-        //    var itemExists = _.some(planActionsList, ['id', planaction.id]);
-        //    if (!itemExists) {
-        //        deferEdit.reject("The item to be edited does not exist. Contact IT Service desk for support.");
-        //    } else {
-        //        var data = {
-        //            Title: planaction.title,
-        //            PlanId: planaction.plan.id,
-        //            ActionNo: planaction.actionno,
-        //            ActionName: planaction.actionname,
-        //            Accountable: planaction.accountable,
-        //            Indicators: planaction.indicators,
-        //            Status: planaction.status,
-        //            PlanCategoryId: planaction.category.id
-        //        };
+        svc.UpdateItem = function (target) {
+            var deferEdit = $q.defer();
+            var itemExists = _.some(actionTargetsList, ['id', target.id]);
+            if (!itemExists) {
+                deferEdit.reject("The item to be edited does not exist. Contact IT Service desk for support.");
+            } else {
+                var data = {
+                    Title: target.title,
+                    PlanActionId: target.actionid,
+                    AnnualTarget: target.target,
+                    TargetYearId: target.year.id
+                };
 
-        //        ShptRestService
-        //            .updateListItem(listname, planaction.id, data)
-        //            .then(function (response) {
-        //                deferEdit.resolve(true);
-        //            })
-        //            .catch(function (error) {
-        //                console.log(error);
-        //                deferEdit.reject("An error occured while adding the item. Contact IT Service desk for support.");
-        //            });
-        //    }
-        //    return deferEdit.promise;
-        //};
+                ShptRestService
+                    .updateListItem(listname, target.id, data)
+                    .then(function (response) {
+                        _.forEach(actionTargetsList, function (t) {
+                            if (t.id == target.id) {
+                                t.target = target.target;
+                                t.updatedate = new Date();
+                                t.updateby = { id: svc.userid, title: svc.usertitle };
+                            }
+                        });
+                        deferEdit.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        deferEdit.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                    });
+            }
+            return deferEdit.promise;
+        };
 
-        //svc.DeleteItem = function (id) {
-        //    var defer = $q.defer();
-        //    if (id) {
-        //        ShptRestService
-        //            .deleteListItem(listname, id)
-        //            .then(function () {
-        //                _.remove(planActionsList, {
-        //                    id: id
-        //                });
-        //                defer.resolve(_.orderBy(planActionsList, ['actionno'], ['asc']));
-        //            })
-        //            .catch(function (error) {
-        //                console.log(error);
-        //                defer.reject("An error occured while deleting the item. Contact IT Service desk for support.");
-        //            });
-        //    } else {
-        //        defer.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
-        //    }
-        //    return defer.promise;
-        //};
+        svc.DeleteItem = function (id) {
+            var deferDelete = $q.defer();
+            if (id) {
+                ShptRestService
+                    .deleteListItem(listname, id)
+                    .then(function () {
+                        _.remove(actionTargetsList, {
+                            id: id
+                        });
+                        deferDelete.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        deferDelete.reject("An error occured while deleting the item. Contact IT Service desk for support.");
+                    });
+            } else {
+                deferDelete.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
+            }
+            return deferDelete.promise;
+        };
     }
 })();

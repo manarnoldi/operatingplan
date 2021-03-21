@@ -43,5 +43,8 @@
     <ProjectItemFile Source="src\app\planaction\planaction.js" Target="src\app\planaction\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\planaction\planaction-update.html" Target="src\app\planaction\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\services\actiontargets.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\years.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction-target.html" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\targetoutputs.js" Target="src\common\services\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--Published:920014D5-5E5A-442D-934A-437E4FB0A4DA-->
+<!--Published:70EDFC97-B41D-43C5-B751-7C00AD999804-->
 <!--Created:cb85b80c-f585-40ff-8bfc-12ff4d0e34a9-->
-<App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest" Name="OperatingPlanApp" ProductID="{75f6ec6c-29df-4c16-ab50-225502896936}" Version="1.0.0.1" SharePointMinVersion="16.0.0.0">
+<App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest" Name="OperatingPlanApp" ProductID="{75f6ec6c-29df-4c16-ab50-225502896936}" Version="1.0.0.3" SharePointMinVersion="16.0.0.0">
   <Properties>
     <Title>OperatingPlanApp</Title>
     <StartPage>~appWebUrl/src/Default.aspx?{StandardTokens}</StartPage>
