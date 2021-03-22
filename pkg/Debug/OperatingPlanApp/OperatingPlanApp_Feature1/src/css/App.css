@@ -181,3 +181,7 @@ hr {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+a {
+    cursor: pointer !important;
+}

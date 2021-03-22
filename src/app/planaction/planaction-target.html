@@ -9,11 +9,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label requiredField">Financial Year:<span class="asteriskField">*</span></label>
-                            <select ng-model="passdata.year"
-                                    ng-options="x.title for x in passdata.years track by x.id"
-                                    class="select form-control"
-                                    required
-                                    ng-disabled="passdata.update">
+                            <select ng-model="passdata.year" ng-options="x.title for x in passdata.years track by x.id" class="select form-control" required ng-disabled="passdata.update">
                                 <option value="" class="" selected="selected">-- Choose Financial Year --</option>
                             </select>
                         </div>
@@ -23,11 +19,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label requiredField">Annual Target Details:<span class="asteriskField">*</span></label>
-                            <textarea class="form-control"
-                                      rows="8"
-                                      ng-model="passdata.target"
-                                      required>
-                                </textarea>
+                            <textarea class="form-control" rows="8" ng-model="passdata.target" required></textarea>
                         </div>
                     </div>
                 </div>

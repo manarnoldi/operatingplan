@@ -44,5 +44,10 @@
     <File Path="src\common\services\actiontargets.js" Url="src/common/services/actiontargets.js" ReplaceContent="TRUE" />
     <File Path="src\common\services\years.js" Url="src/common/services/years.js" ReplaceContent="TRUE" />
     <File Path="src\app\planaction\planaction-target.html" Url="src/app/planaction/planaction-target.html" ReplaceContent="TRUE" />
+    <File Path="src\common\services\targetoutputs.js" Url="src/common/services/targetoutputs.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction-output.html" Url="src/app/planaction/planaction-output.html" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" Url="src/common/directives/multiselect/angular-dropdownMultiselect.min.css" ReplaceContent="TRUE" />
+    <File Path="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" Url="src/common/directives/multiselect/angularjs-dropdown-multiselect.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\teams.js" Url="src/common/services/teams.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

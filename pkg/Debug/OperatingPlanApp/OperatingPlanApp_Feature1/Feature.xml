@@ -59,6 +59,11 @@
     <ElementFile Location="src\common\services\actiontargets.js" />
     <ElementFile Location="src\common\services\years.js" />
     <ElementFile Location="src\app\planaction\planaction-target.html" />
+    <ElementFile Location="src\common\services\targetoutputs.js" />
+    <ElementFile Location="src\app\planaction\planaction-output.html" />
+    <ElementFile Location="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" />
+    <ElementFile Location="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" />
+    <ElementFile Location="src\common\services\teams.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

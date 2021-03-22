@@ -81,7 +81,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="target in ctrl.actiontargets">
-                                        <td><span><a ng-click="ctrl.showTargetOutputs(target)">{{target.year.title}}</a></span></td>
+                                        <td><span><a ng-click="ctrl.showOutputs(target)">{{target.year.title}}</a></span></td>
                                         <td><span>{{target.target}}</span></td>
                                         <td><span>{{target.updateby.title}}</span></td>
                                         <td><span>{{target.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="pull-right admin-add-btn">
-                            <a ng-href="ctrl.addTargetOutput()" class="btn btn-sm btn-success">
+                            <a ng-click="ctrl.addOutput()" class="btn btn-sm btn-success">
                                 <i class="fa fa-plus-circle"></i>
                                 Add Target Output
                             </a>
@@ -125,23 +125,31 @@
                             <table class="table table-bordered table-condensed table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="min-width:250px;">Output</th>
-                                        <th style="min-width:100px;">Lead Team</th>
-                                        <th style="min-width:100px;">Individual Responsible</th>
-                                        <th style="min-width:100px;">Other Teams Required</th>
-                                        <th style="min-width:100px;">Modified By</th>
-                                        <th style="min-width:100px;">Modified Date</th>
+                                        <th style="min-width:50px;">No</th>
+                                        <th style="min-width:200px;">Output</th>
+                                        <th style="min-width:120px;">Lead Team</th>
+                                        <th style="min-width:120px;">Individual Responsible</th>
+                                        <th style="min-width:120px;">Other Teams Required</th>
+                                        <th style="min-width:120px;">Modified By</th>
+                                        <th style="min-width:120px;">Modified Date</th>
+                                        <th style="min-width:100px;">Status</th>
                                         <th style="min-width:80px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="out in ctrl.targetoutputs" ng-click="ctrl.showTargetOutputs()">
-                                        <td><span>{{out.output}}</span></td>
-                                        <td><span>{{out.leadteam}}</span></td>
+                                    <tr ng-repeat="out in ctrl.outputs" ng-click="ctrl.showProgress()">
+                                        <td><span><a ng-click="ctrl.showProgress(out)">{{out.num}}.</a></span></td>
+                                        <td><span><a ng-click="ctrl.showProgress(out)">{{out.output}}</a></span></td>
+                                        <td><span>{{out.leadteam.title}}</span></td>
                                         <td><span>{{out.responsible.title}}</span></td>
-                                        <td><span>{{out.otherteams}}</span></td>
-                                        <td><span>{{out.modifiedby.title}}</span></td>
-                                        <td><span>{{out.modifieddate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
+                                        <td>
+                                            <span ng-repeat="team in out.otherteams">
+                                                {{team.title}}<font ng-show="!$last">,</font>
+                                            </span>
+                                        </td>
+                                        <td><span>{{out.updateby.title}}</span></td>
+                                        <td><span>{{out.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
+                                        <td><span>{{out.status}}</span></td>
                                         <td>
                                             <div>
                                                 <a href="#" class="btn btn-warning btn-xs" title="Update Output">
@@ -192,7 +200,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="prog in ctrl.outputprogress" ng-click="ctrl.showProgressUpdates()">
+                                    <tr ng-repeat="prog in ctrl.progress" ng-click="ctrl.showProgressUpdates()">
                                         <td><span>{{prog.quarter}}</span></td>
                                         <td><span>{{prog.notes}}</span></td>
                                         <td><span>{{prog.progress}}</span></td>

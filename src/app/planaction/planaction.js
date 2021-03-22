@@ -5,22 +5,35 @@
         .module('planaction', [])
         .controller('planactionCtrl', PlanActionCtrlFunction);
 
-    PlanActionCtrlFunction.$inject = ['$q', '$routeParams', '$dialog', '$dialogAlert', '$dialogConfirm', 'actionTargetsSvc', 'yearsSvc', 'UtilService', 'planActionsSvc', 'spinnerService', 'growl'];
-    function PlanActionCtrlFunction($q, $routeParams, $dialog, $dialogAlert, $dialogConfirm, actionTargetsSvc, yearsSvc, UtilService, planActionsSvc, spinnerService, growl) {
+    PlanActionCtrlFunction.$inject = ['$q', '$routeParams', '$dialog', '$dialogAlert', '$dialogConfirm', 'actionTargetsSvc', 'targetOutputsSvc', 'yearsSvc', 'planActionsSvc','teamsSvc', 'spinnerService', 'growl'];
+    function PlanActionCtrlFunction($q, $routeParams, $dialog, $dialogAlert, $dialogConfirm, actionTargetsSvc, targetOutputsSvc, yearsSvc, planActionsSvc, teamsSvc, spinnerService, growl) {
         var ctrl = this;
         spinnerService.show('spinner1');
         ctrl.actionid = parseInt($routeParams.id);
         ctrl.searchstatus = $routeParams.searchstatus;
+        ctrl.hostWebUrl = _spPageContextInfo.webAbsoluteUrl;
+        ctrl.outputs = [];
+        ctrl.progress = [];
         var promises = [];
         promises.push(planActionsSvc.getItemById(ctrl.actionid));
         promises.push(actionTargetsSvc.getAllItems(ctrl.actionid));
         promises.push(yearsSvc.getAllItems());
+        promises.push(teamsSvc.getAllItems());
         $q
             .all(promises)
             .then(function (results) {
                 ctrl.action = results[0];
                 ctrl.actiontargets = results[1];
                 ctrl.years = results[2];
+                ctrl.teams = results[3];
+                ctrl.statuses = ["Active", "Completed"];
+                ctrl.currenttarget = "";
+                ctrl.config = {
+                    checkBoxes: true,
+                    dynamicTitle: false,
+                    showUncheckAll: false,
+                    showCheckAll: false
+                };
             })
             .catch(function (error) {
                 growl.error(error);
@@ -101,5 +114,56 @@
                 });
         };
 
+        ctrl.showOutputs = function (target) {
+            ctrl.currenttarget = "";
+            ctrl.currenttarget = target;
+            spinnerService.show('spinner1');
+            targetOutputsSvc
+                .getAllItems(target.id)
+                .then(function (res) {
+                    ctrl.outputs = [];
+                    ctrl.progress = [];
+                    ctrl.outputs = res;
+                    $dialogAlert('[' + res.length + '] outputs have been found for target.', 'Successful Transaction');
+                })
+                .catch(function (error) {
+                    $dialogAlert(error, 'Unsuccessful Transaction');
+                })
+                .finally(function () {
+                    spinnerService.closeAll();
+                });
+        };
+
+        ctrl.addOutput = function () {
+            if (ctrl.currenttarget == "") {
+                $dialogAlert("Kindly select the target yeat details.", "Missing Details");
+                return;
+            }
+            var output = {};
+            output.target = ctrl.currenttarget;
+            output.teams = ctrl.teams;
+            output.update = false;
+            output.hostWebUrl = ctrl.hostWebUrl;
+            output.otherteams = [];
+            output.statuses = ctrl.statuses;
+            output.status = "Active";
+            var outputDW = { scopeVariableName: 'output', dataObject: output };
+            $dialog('app/planaction/planaction-output.html', 'lg', outputDW)
+                .then(function (output) {
+                    spinnerService.show('spinner1');
+                    targetOutputsSvc
+                        .AddItem(output)
+                        .then(function (res) {
+                            ctrl.outputs = res;
+                            $dialogAlert('Yearl target output added successfully!', 'Successful Transaction');
+                        })
+                        .catch(function (error) {
+                            $dialogAlert(error, 'Unable to add alert record');
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
     }
 })();

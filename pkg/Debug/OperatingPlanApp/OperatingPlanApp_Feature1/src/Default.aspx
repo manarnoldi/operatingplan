@@ -37,16 +37,19 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
     <script type="text/javascript" src="common/directives/ui-bootstrap-dialogs.js"></script>
+    <script type="text/javascript" src="common/directives/multiselect/angularjs-dropdown-multiselect.js"></script>
     <script type="text/javascript" src="common/utilities/sp-ng-module.js"></script>
     <script type="text/javascript" src="common/directives/spinner/loading-spinner.js"></script>
     <script type="text/javascript" src="common/utilities/utilities.js"></script>
 
     <!--Services-->
+    <script type="text/javascript" src="common/services/teams.js"></script>
     <script type="text/javascript" src="common/services/years.js"></script>
     <script type="text/javascript" src="common/services/plancategories.js"></script>
     <script type="text/javascript" src="common/services/plans.js"></script>
     <script type="text/javascript" src="common/services/planactions.js"></script>
     <script type="text/javascript" src="common/services/actiontargets.js"></script>
+    <script type="text/javascript" src="common/services/targetoutputs.js"></script>
     <script type="text/javascript" src="common/services/settings.js"></script>
 
     <!--Directives-->

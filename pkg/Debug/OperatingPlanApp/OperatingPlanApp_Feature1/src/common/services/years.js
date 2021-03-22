@@ -28,7 +28,7 @@
                         year.enddate = new Date(o.EndDate);
                         yearsList.push(year);
                     });
-                    defer.resolve(yearsList);
+                    defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -56,7 +56,7 @@
                     .then(function (response) {
                         year.id = response.ID;
                         yearsList.push(year);
-                        defer.resolve(_.orderBy(yearsList, ['title'], ['asc']));
+                        defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -82,7 +82,13 @@
                 ShptRestService
                     .updateListItem(listname, year.id, data)
                     .then(function (response) {
-                        deferEdit.resolve(true);
+                        _.forEach(yearsList, function (y) {
+                            if (y.id == year.id) {
+                                y.startdate = year.startdate;
+                                y.enddate = year.enddate;
+                            }
+                        });
+                        deferEdit.resolve(yearsList, ['id', year.id]);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -101,7 +107,7 @@
                         _.remove(yearsList, {
                             id: id
                         });
-                        defer.resolve(_.orderBy(yearsList, ['title'], ['asc']));
+                        defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
                     })
                     .catch(function (error) {
                         console.log(error);

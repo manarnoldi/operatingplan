@@ -2,33 +2,32 @@
     'use strict';
 
     angular
-        .module('services.years', [])
-        .service('yearsSvc', YearsSvc);
+        .module('services.teams', [])
+        .service('teamsSvc', TeamsSvc);
 
-    YearsSvc.$inject = ['$q', 'ShptRestService'];
-    function YearsSvc($q, ShptRestService) {
+    TeamsSvc.$inject = ['$q', 'ShptRestService'];
+    function TeamsSvc($q, ShptRestService) {
         var svc = this;
-        var listname = 'PlanYears';
+        var listname = 'PlanTeams';
         svc.userid = _spPageContextInfo.userId;
-        var yearsList = null;
+        var teamsList = null;
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
         svc.getAllItems = function () {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,StartDate,EndDate";
+            var queryParams = "$select=Id,Title,TeamLead/Id,TeamLead/Title&$expand=TeamLead";
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
-                    yearsList = [];
+                    teamsList = [];
                     _.forEach(data.results, function (o) {
-                        var year = {};
-                        year.id = o.Id;
-                        year.title = o.Title;
-                        year.startdate = new Date(o.StartDate);
-                        year.enddate = new Date(o.EndDate);
-                        yearsList.push(year);
+                        var team = {};
+                        team.id = o.Id;
+                        team.title = o.Title;
+                        team.teamlead = _.isNil(o.TeamLead) ? "" : { id: o.TeamLead.Id, title: o.TeamLead.Title };
+                        teamsList.push(team);
                     });
-                    defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
+                    defer.resolve(_.orderBy(teamsList, ['title'], ['asc']));
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -37,26 +36,25 @@
             return defer.promise;
         };
 
-        svc.AddItem = function (year) {
+        svc.AddItem = function (team) {
             var defer = $q.defer();
-            var itemExists = _.some(yearsList, ['title', year.title]);
+            var itemExists = _.some(teamsList, ['title', team.title]);
 
             if (itemExists) {
                 defer.reject("The item specified already exists in the system. Contact IT Service desk for support.");
             } else {
 
                 var data = {
-                    Title: year.title,
-                    StartDate: year.startdate,
-                    EndDate: year.enddate,
+                    Title: team.title,
+                    TeamLeadId: team.teamlead.id
                 };
 
                 ShptRestService
                     .createNewListItem(listname, data)
                     .then(function (response) {
-                        year.id = response.ID;
-                        yearsList.push(year);
-                        defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
+                        team.id = response.ID;
+                        teamsList.push(team);
+                        defer.resolve(_.orderBy(teamsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -66,29 +64,28 @@
             return defer.promise;
         };
 
-        svc.UpdateItem = function (year) {
+        svc.UpdateItem = function (team) {
             var deferEdit = $q.defer();
-            var itemExists = _.some(yearsList, ['id', year.id]);
+            var itemExists = _.some(teamsList, ['id', team.id]);
 
             if (!itemExists) {
                 deferEdit.reject("The item to be edited does not exist. Contact IT Service desk for support.");
             } else {
                 var data = {
-                    Title: year.title,
-                    StartDate: year.startdate,
-                    EndDate: year.enddate,
+                    Title: team.title,
+                    TeamLeadId: team.teamlead.id
                 };
 
                 ShptRestService
-                    .updateListItem(listname, year.id, data)
+                    .updateListItem(listname, team.id, data)
                     .then(function (response) {
-                        _.forEach(yearsList, function (y) {
-                            if (y.id == year.id) {
-                                y.startdate = year.startdate;
-                                y.enddate = year.enddate;
+                        _.forEach(teamsList, function (t) {
+                            if (t.id == team.id) {
+                                t.title = team.title;
+                                t.teamlead = team.teamlead;
                             }
                         });
-                        deferEdit.resolve(yearsList, ['id', year.id]);
+                        deferEdit.resolve(teamsList, ['id', team.id]);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -104,10 +101,10 @@
                 ShptRestService
                     .deleteListItem(listname, id)
                     .then(function () {
-                        _.remove(yearsList, {
+                        _.remove(teamsList, {
                             id: id
                         });
-                        defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
+                        defer.resolve(_.orderBy(teamsList, ['title'], ['asc']));
                     })
                     .catch(function (error) {
                         console.log(error);

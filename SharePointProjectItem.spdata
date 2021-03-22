@@ -46,5 +46,9 @@
     <ProjectItemFile Source="src\common\services\years.js" Target="src\common\services\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\planaction\planaction-target.html" Target="src\app\planaction\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\services\targetoutputs.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction-output.html" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" Target="src\common\directives\multiselect\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" Target="src\common\directives\multiselect\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\teams.js" Target="src\common\services\" Type="ElementFile" />
   </Files>
 </ProjectItem>

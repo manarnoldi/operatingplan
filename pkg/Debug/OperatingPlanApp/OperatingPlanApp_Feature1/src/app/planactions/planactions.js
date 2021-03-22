@@ -84,7 +84,7 @@
                 $dialogAlert("Kindly select the plan name.", "Missing Details");
                 return;
             }
-
+            spinnerService.show('spinner1');
             planActionsSvc
                 .getPlansSearched(ctrl.plan.id, ctrl.status)
                 .then(function (planactions) {
