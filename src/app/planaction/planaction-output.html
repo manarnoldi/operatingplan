@@ -22,14 +22,14 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="form-group">
-                            <label class="control-label">Output:</label>
-                            <textarea class="form-control" rows="4" ng-model="output.output" required></textarea>                            
+                            <label class="control-label">Output: <span class="asteriskField">*</span></label>
+                            <textarea class="form-control" rows="4" ng-model="output.output" ng-required></textarea>                            
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label">Lead Team:</label>
-                            <select ng-model="output.leadteam" ng-options="x.title for x in output.teams track by x.id" class="select form-control" required>
+                            <label class="control-label">Lead Team: <span class="asteriskField">*</span></label>
+                            <select ng-model="output.leadteam" ng-options="x.title for x in output.teams track by x.id" class="select form-control" ng-required>
                                 <option value="" class="" selected="selected">-- Choose Lead Team --</option>
                             </select>
                         </div>
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label">Individual Responsible: <span class="asteriskField">*</span></label>
+                            <label class="control-label">Individual Responsible(only one): <span class="asteriskField">*</span></label>
                             <div>
                                 <sp-people-picker name="contractmanagers"
                                                   ng-model="output.individual"
@@ -52,8 +52,8 @@
                             </div>
                             <div ng-if="output.update">
                                 <div class="badge">
-                                    <span>{{ output.individual.title }}</span>
-                                    <div class="btn btn-xs btn-danger" ng-click="ctrl.removeIndividual(output.individual)">
+                                    <span>{{ output.responsible.title }}</span>
+                                    <div class="btn btn-xs btn-danger" ng-click="ctrl.removeIndividual(output.responsible.id, output.target.id)">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </div>
                                 </div>
@@ -62,14 +62,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="control-label requiredField">Other Teams Required:<span class="asteriskField">*</span></label>
+                            <label class="control-label requiredField">Other Teams Required:</label>
                             <div ng-dropdown-multiselect="" options="output.teams" selected-model="output.otherteams" extra-settings="ctrl.config"></div>   
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="control-label requiredField">Status:<span class="asteriskField">*</span></label>
-                            <select ng-model="output.status" ng-options="x for x in output.statuses" class="select form-control" required>
+                            <select ng-model="output.status" ng-options="x for x in output.statuses" class="select form-control" ng-required>
                                 <option value="" class="" selected="selected">-- Choose Lead Team --</option>
                             </select>
                         </div>

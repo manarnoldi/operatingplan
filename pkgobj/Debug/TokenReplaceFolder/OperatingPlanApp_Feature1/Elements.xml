@@ -49,5 +49,30 @@
     <File Path="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" Url="src/common/directives/multiselect/angular-dropdownMultiselect.min.css" ReplaceContent="TRUE" />
     <File Path="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" Url="src/common/directives/multiselect/angularjs-dropdown-multiselect.js" ReplaceContent="TRUE" />
     <File Path="src\common\services\teams.js" Url="src/common/services/teams.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\outputprogress.js" Url="src/common/services/outputprogress.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-years\years.js" Url="src/app/adm-years/years.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\quarters.js" Url="src/common/services/quarters.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-years\years-list.tpl.html" Url="src/app/adm-years/years-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-quarters\quarters-list.tpl.html" Url="src/app/adm-quarters/quarters-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-quarters\quarters.js" Url="src/app/adm-quarters/quarters.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-teams\teams-list.tpl.html" Url="src/app/adm-teams/teams-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-teams\teams.js" Url="src/app/adm-teams/teams.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-categories\categories-list.tpl.html" Url="src/app/adm-categories/categories-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-categories\categories.js" Url="src/app/adm-categories/categories.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-plans\plans-list.tpl.html" Url="src/app/adm-plans/plans-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-plans\plans.js" Url="src/app/adm-plans/plans.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-actions\actions-list.tpl.html" Url="src/app/adm-actions/actions-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-actions\actions.js" Url="src/app/adm-actions/actions.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-settings\settings-list.tpl.html" Url="src/app/adm-settings/settings-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-settings\settings.js" Url="src/app/adm-settings/settings.js" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction-progress.html" Url="src/app/planaction/planaction-progress.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-accountable\accountable-list.tpl.html" Url="src/app/adm-accountable/accountable-list.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-accountable\accountable.js" Url="src/app/adm-accountable/accountable.js" ReplaceContent="TRUE" />
+    <File Path="src\common\services\accountable.js" Url="src/common/services/accountable.js" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-years\years-add.tpl.html" Url="src/app/adm-years/years-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-quarters\quarters-add.tpl.html" Url="src/app/adm-quarters/quarters-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-categories\categories-add.tpl.html" Url="src/app/adm-categories/categories-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-plans\plans-add.tpl.html" Url="src/app/adm-plans/plans-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\adm-actions\actions-add.tpl.html" Url="src/app/adm-actions/actions-add.tpl.html" ReplaceContent="TRUE" />
   </Module>
 </Elements>

@@ -15,8 +15,8 @@
 
         svc.getAllItems = function (planid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
-                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan&$filter=Plan/Id eq " + planid;
+            var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable/Id,Accountable/Title,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
+                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan,Accountable&$filter=Plan/Id eq " + planid;
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -28,7 +28,7 @@
                         planaction.plan = _.isNil(o.Plan) ? "" : { id: o.Plan.Id, title: o.Plan.Title };
                         planaction.actionno = o.ActionNo;
                         planaction.actionname = o.ActionName;
-                        planaction.accountable = o.Accountable;
+                        planaction.accountable = _.isNil(o.Accountable) ? "" : { id: o.Accountable.Id, title: o.Accountable.Title };
                         planaction.indicators = o.Indicators;
                         planaction.status = o.Status;
                         planaction.category = _.isNil(o.PlanCategory) ? "" : { id: o.PlanCategory.Id, title: o.PlanCategory.Title, code: o.PlanCategory.Code, abbr: o.PlanCategory.Abbr };
@@ -58,7 +58,7 @@
                     PlanId: planaction.plan.id,
                     ActionNo: planaction.actionno,
                     ActionName: planaction.actionname,
-                    Accountable: planaction.accountable,
+                    AccountableId: planaction.accountable.id,
                     Indicators: planaction.indicators,
                     Status: planaction.status,
                     PlanCategoryId: planaction.category.id
@@ -67,9 +67,7 @@
                 ShptRestService
                     .createNewListItem(listname, data)
                     .then(function (response) {
-                        planaction.id = response.ID;
-                        planActionsList.push(planaction);
-                        defer.resolve(_.orderBy(planActionsList, ['actionno'], ['asc']));
+                        defer.resolve(true);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -90,7 +88,7 @@
                     PlanId: planaction.plan.id,
                     ActionNo: planaction.actionno,
                     ActionName: planaction.actionname,
-                    Accountable: planaction.accountable,
+                    AccountableId: planaction.accountable.id,
                     Indicators: planaction.indicators,
                     Status: planaction.status,
                     PlanCategoryId: planaction.category.id
@@ -153,8 +151,8 @@
 
         svc.getItemById = function (planid) {
             var deferItemById = $q.defer();
-            var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
-                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan";
+            var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable/Id,Accountable/Title,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
+                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan,Accountable";
             ShptRestService
                 .getListItemById(listname, planid, queryParams)
                 .then(function (res) {
@@ -164,7 +162,7 @@
                     planaction.plan = _.isNil(res.Plan) ? "" : { id: res.Plan.Id, title: res.Plan.Title };
                     planaction.actionno = res.ActionNo;
                     planaction.actionname = res.ActionName;
-                    planaction.accountable = res.Accountable;
+                    planaction.accountable = _.isNil(res.Accountable) ? "" : { id: res.Accountable.Id, title: res.Accountable.Title };
                     planaction.indicators = res.Indicators;
                     planaction.status = res.Status;
                     planaction.category = _.isNil(res.PlanCategory) ? "" : { id: res.PlanCategory.Id, title: res.PlanCategory.Title, code: res.PlanCategory.Code, abbr: res.PlanCategory.Abbr };

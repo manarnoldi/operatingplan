@@ -84,6 +84,7 @@
                     .then(function (response) {
                         _.forEach(yearsList, function (y) {
                             if (y.id == year.id) {
+                                y.title = year.title;
                                 y.startdate = year.startdate;
                                 y.enddate = year.enddate;
                             }

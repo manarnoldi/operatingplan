@@ -15,7 +15,7 @@
 
         svc.getAllItems = function () {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,CategoryNo";
+            var queryParams = "$select=Id,Title,CategoryNo,Code,Abbr";
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -24,6 +24,8 @@
                         var plancat = {};
                         plancat.id = o.Id;
                         plancat.title = o.Title;
+                        plancat.code = o.Code;
+                        plancat.abbr = o.Abbr;
                         plancat.categoryno = o.CategoryNo;
                         planCategoriesList.push(plancat);
                     });
@@ -46,7 +48,9 @@
 
                 var data = {
                     Title: plancat.title,
-                    CategoryNo: plancat.categoryno
+                    CategoryNo: plancat.categoryno,
+                    Code: plancat.code,
+                    Abbr: plancat.abbr
                 };
 
                 ShptRestService
@@ -73,7 +77,9 @@
             } else {
                 var data = {
                     Title: plancat.title,
-                    CategoryNo: plancat.categoryno
+                    CategoryNo: plancat.categoryno,
+                    Code: plancat.code,
+                    Abbr: plancat.abbr
                 };
 
                 ShptRestService

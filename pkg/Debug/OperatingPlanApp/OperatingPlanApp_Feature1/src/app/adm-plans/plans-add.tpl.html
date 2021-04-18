@@ -1,0 +1,76 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to Plans List" link="listAdminPlans"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading pnl-heading">{{ctrl.action == 'add' ? 'ADD' : 'EDIT'}} PLAN INFORMATION</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Plan Title: <span class="asteriskField">*</span></label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.plan.title"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Years Span</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.plan.yearsspan"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Start Date: <span class="asteriskField">*</span></label>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-model="ctrl.plan.startdate"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">End Date</label>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-model="ctrl.plan.enddate"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Plan Description</label>
+                                    <textarea class="form-control" ng-model="ctrl.plan.description" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer clearfix">
+                        <div class="form-group pull-right">
+                            <a href="" class="btn btn-success" ng-click="ctrl.AddRecord()">
+                                <i class="fa fa-save"></i> {{  ctrl.action == 'edit' ? 'Update': 'Add' }} Record
+                            </a>
+                            <a href="#listAdminPlans" class="btn btn-warning ">
+                                <i class="fa fa-cut"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

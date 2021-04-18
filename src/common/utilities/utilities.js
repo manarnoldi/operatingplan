@@ -100,49 +100,20 @@ angular
         /**
           * A function that returns the shortcut links.
           */
-        utilService.getAppShortcutlinks = function (activeLinkId, hostWebUrl) {
+        utilService.getAppShortcutlinks = function (activeLinkId) {
             var links = [
-                { 'id': 1, title: 'Country Office/Global Teams', icon: 'fa-building', url: '#listAdminDepartments', class: '', target:'_parent' },
-                { 'id': 2, title: 'Cost Centers', icon: 'fa-eur', url: '#listAdminCostCenters', class: '', target:'_parent' },
-                { 'id': 3, title: 'Document Types', icon: 'fa-files-o ', url: '#listAdminDocTypes', class: '', target:'_parent' },
-                { 'id': 4, title: 'Currencies', icon: 'fa-wrench', url: '#listAdminCurrencies', class: '', target:'_parent' },
-                { 'id': 5, title: 'System Settings', icon: 'fa-cogs', url: '#listAdminSettings', class: '', target:'_parent' }];
+                { 'id': 1, title: 'Plan Years', icon: 'fa-calendar', url: '#listAdminYears', class: '', target:'_parent' },
+                { 'id': 2, title: 'Plan Quarters', icon: 'fa-calendar-check-o', url: '#listAdminQuarters', class: '', target:'_parent' },
+                { 'id': 3, title: 'Plan Accountable', icon: 'fa-users', url: '#listAdminAccountable', class: '', target:'_parent' },
+                { 'id': 4, title: 'Plan Teams', icon: 'fa-users', url: '#listAdminTeams', class: '', target: '_parent' },
+                { 'id': 5, title: 'Plan Categories', icon: 'fa-list', url: '#listAdminCategories', class: '', target:'_parent' },
+                { 'id': 6, title: 'Plans', icon: 'fa-list-ol', url: '#listAdminPlans', class: '', target:'_parent' },
+                { 'id': 7, title: 'Plan Actions', icon: 'user-check', url: '#listAdminActions', class: '', target: '_parent' },
+                { 'id': 8, title: 'Plan Settings', icon: 'fa-cogs', url: '#listAdminSettings', class: '', target:'_parent' }];
 
             var activeLink = _.find(links, ['id', activeLinkId]);
             activeLink.class = "button-active";
             return links;
-        };
-
-        /**
-         * A function that returns the admin menu links.
-         */
-        utilService.getAppAdminlinks = function (activeLinkId, type, useradmin) {
-            var adminMenu = {}
-            var links = [];
-            if (type == 'reports') {
-                adminMenu.adminMenuTitle = "REPORTS MENU";
-                links = [];
-                links.push({ 'id': 1, title: 'MY TRAININGS', class: '', url: '#listTrainingList/1' });
-                if (useradmin) {
-                    links.push({ 'id': 2, title: 'ATTENDANCES', class: '', url: '#listTrainingAttendance/2' });
-                    links.push({ 'id': 3, title: 'MATRIX', class: '', url: '#listTrainingMatrix/3' });
-                }
-            } else {
-                adminMenu.adminMenuTitle = "STAFF ADMIN MENU";
-                links = [
-                    { 'id': 1, title: 'STAFF MEMBERS', class: '', url: '#listPeople' }
-                    // { 'id': 2, title: 'DEPARTMENTS', class: '', url: '#listDepartments' },
-                    // { 'id': 3, title: 'LOCATIONS', class: '', url: '#listLocations' },
-                    // { 'id': 4, title: 'POSITIONS', class: '', url: '#listPositions' }
-                ];
-            }
-
-            var activeLink = _.find(links, function (link) {
-                return link.id == activeLinkId;
-            });
-            activeLink.class = "active";
-            adminMenu.links = links;
-            return adminMenu;
         };
 
         /**
@@ -310,6 +281,21 @@ angular
         shptService.getListItems = function (listTitle, queryParams) {
             var deferred = $q.defer();
             var uri = shptService.appWebUrl + '/_api/SP.AppContextSite(@target)/web/Lists/getByTitle(\'' + listTitle + '\')/Items?' + queryParams + '&$top=5000&@target=\'' + shptService.hostWebUrl + '\'';
+            $http({
+                method: 'GET',
+                url: uri,
+                headers: { Accept: 'application/json;odata=verbose' }
+            }).then(function sendResponseData(response) {
+                deferred.resolve(response.data.d);
+            }).catch(function handleError(response) {
+                deferred.reject(response.data.error.message.value);
+            });
+            return deferred.promise;
+        };
+
+        shptService.getListItemsWNT = function (listTitle, queryParams) {
+            var deferred = $q.defer();
+            var uri = shptService.appWebUrl + '/_api/SP.AppContextSite(@target)/web/Lists/getByTitle(\'' + listTitle + '\')/Items?' + queryParams + '&@target=\'' + shptService.hostWebUrl + '\'';
             $http({
                 method: 'GET',
                 url: uri,

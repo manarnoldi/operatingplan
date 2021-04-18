@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.0.0.3">
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.1.0.0">
   <ElementManifests>
     <ElementManifest Location="Pages\Elements.xml" />
     <ElementManifest Location="Scripts\Elements.xml" />
@@ -64,6 +64,31 @@
     <ElementFile Location="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" />
     <ElementFile Location="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" />
     <ElementFile Location="src\common\services\teams.js" />
+    <ElementFile Location="src\common\services\outputprogress.js" />
+    <ElementFile Location="src\app\adm-years\years.js" />
+    <ElementFile Location="src\common\services\quarters.js" />
+    <ElementFile Location="src\app\adm-years\years-list.tpl.html" />
+    <ElementFile Location="src\app\adm-quarters\quarters-list.tpl.html" />
+    <ElementFile Location="src\app\adm-quarters\quarters.js" />
+    <ElementFile Location="src\app\adm-teams\teams-list.tpl.html" />
+    <ElementFile Location="src\app\adm-teams\teams.js" />
+    <ElementFile Location="src\app\adm-categories\categories-list.tpl.html" />
+    <ElementFile Location="src\app\adm-categories\categories.js" />
+    <ElementFile Location="src\app\adm-plans\plans-list.tpl.html" />
+    <ElementFile Location="src\app\adm-plans\plans.js" />
+    <ElementFile Location="src\app\adm-actions\actions-list.tpl.html" />
+    <ElementFile Location="src\app\adm-actions\actions.js" />
+    <ElementFile Location="src\app\adm-settings\settings-list.tpl.html" />
+    <ElementFile Location="src\app\adm-settings\settings.js" />
+    <ElementFile Location="src\app\planaction\planaction-progress.html" />
+    <ElementFile Location="src\app\adm-accountable\accountable-list.tpl.html" />
+    <ElementFile Location="src\app\adm-accountable\accountable.js" />
+    <ElementFile Location="src\common\services\accountable.js" />
+    <ElementFile Location="src\app\adm-years\years-add.tpl.html" />
+    <ElementFile Location="src\app\adm-quarters\quarters-add.tpl.html" />
+    <ElementFile Location="src\app\adm-categories\categories-add.tpl.html" />
+    <ElementFile Location="src\app\adm-plans\plans-add.tpl.html" />
+    <ElementFile Location="src\app\adm-actions\actions-add.tpl.html" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

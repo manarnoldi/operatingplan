@@ -45,11 +45,14 @@
     <!--Services-->
     <script type="text/javascript" src="common/services/teams.js"></script>
     <script type="text/javascript" src="common/services/years.js"></script>
+    <script type="text/javascript" src="common/services/accountable.js"></script>
+    <script type="text/javascript" src="common/services/quarters.js"></script>
     <script type="text/javascript" src="common/services/plancategories.js"></script>
     <script type="text/javascript" src="common/services/plans.js"></script>
     <script type="text/javascript" src="common/services/planactions.js"></script>
     <script type="text/javascript" src="common/services/actiontargets.js"></script>
     <script type="text/javascript" src="common/services/targetoutputs.js"></script>
+    <script type="text/javascript" src="common/services/outputprogress.js"></script>
     <script type="text/javascript" src="common/services/settings.js"></script>
 
     <!--Directives-->
@@ -62,6 +65,14 @@
     <script type="text/javascript" src="common/directives/add-document/add-document.dir.js"></script>
 
     <!--Controllers-->
+    <script type="text/javascript" src="app/adm-years/years.js"></script>
+    <script type="text/javascript" src="app/adm-quarters/quarters.js"></script>
+    <script type="text/javascript" src="app/adm-accountable/accountable.js"></script>
+    <script type="text/javascript" src="app/adm-teams/teams.js"></script>
+    <script type="text/javascript" src="app/adm-categories/categories.js"></script>
+    <script type="text/javascript" src="app/adm-plans/plans.js"></script>
+    <script type="text/javascript" src="app/adm-actions/actions.js"></script>
+    <script type="text/javascript" src="app/adm-settings/settings.js"></script>
     <script type="text/javascript" src="app/planaction/planaction.js"></script>
     <script type="text/javascript" src="app/planactions/planactions.js"></script>
 

@@ -129,5 +129,6 @@
             }
             return deferDelete.promise;
         };
+        
     }
 })();

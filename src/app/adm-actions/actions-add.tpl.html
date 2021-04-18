@@ -1,0 +1,77 @@
+﻿<div class="col-md-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{pd.planaction.action == 'add' ? 'ADD' : 'EDIT'}} PLAN ACTION INFORMATION</h3>
+        </div>
+        <form method="post" name="frm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Action Name: <span class="asteriskField">*</span></label>
+                            <textarea class="form-control" ng-model="pd.planaction.actionname" rows="3"  ng-required="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Action No: <span class="asteriskField">*</span></label>
+                            <input class="form-control" type="number" min="1" ng-model="pd.planaction.actionno" ng-required="true">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Plan Name:<span class="asteriskField">*</span></label>
+                            <select ng-model="pd.planaction.plan" ng-options="x.title for x in pd.plans track by x.id" class="select form-control" ng-required="true">
+                                <option value="" class="" selected="selected">--Select Plan Name--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Category: <span class="asteriskField">*</span></label>
+                            <select ng-model="pd.planaction.category" ng-options="x.title for x in pd.categories track by x.id" class="select form-control" ng-required="true">
+                                <option value="" class="" selected="selected">--Select Category--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Accountable: <span class="asteriskField">*</span></label>
+                            <select ng-model="pd.planaction.accountable" ng-options="x.title for x in pd.accountables track by x.id" class="select form-control" ng-required="true">
+                                <option value="" class="" selected="selected">--Select Accountable--</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Indicators: <span class="asteriskField">*</span></label>
+                            <textarea class="form-control" ng-model="pd.planaction.indicators" rows="5" ng-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Status: <span class="asteriskField">*</span></label>
+                        <select ng-model="pd.planaction.status" ng-options="x for x in pd.statuses" class="select form-control" ng-required="true">
+                            <option value="" class="" selected="selected">-- Select Status --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, pd.planaction);" ng-disabled="!frm.$valid">
+                        {{pd.planaction.action == 'add' ? "Add": "Update"}} and close
+                    </button>
+                    <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

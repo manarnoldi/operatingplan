@@ -1,0 +1,68 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to Plan Categories List" link="listAdminCategories"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading pnl-heading">{{ctrl.action == 'add' ? 'ADD' : 'EDIT'}} PLAN CATEGORY INFORMATION</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Category Title: <span class="asteriskField">*</span></label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.category.title"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Category Code</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.category.code"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Category No: <span class="asteriskField">*</span></label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.category.categoryno"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abbreviation</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.category.abbr"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer clearfix">
+                        <div class="form-group pull-right">
+                            <a href="" class="btn btn-success" ng-click="ctrl.AddRecord()">
+                                <i class="fa fa-save"></i> {{  ctrl.action == 'edit' ? 'Update': 'Add' }} Record
+                            </a>
+                            <a href="#listAdminCategories" class="btn btn-warning ">
+                                <i class="fa fa-cut"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

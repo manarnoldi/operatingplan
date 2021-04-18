@@ -50,5 +50,30 @@
     <ProjectItemFile Source="src\common\directives\multiselect\angular-dropdownMultiselect.min.css" Target="src\common\directives\multiselect\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\directives\multiselect\angularjs-dropdown-multiselect.js" Target="src\common\directives\multiselect\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\services\teams.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\outputprogress.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-years\years.js" Target="src\app\adm-years\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\quarters.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-years\years-list.tpl.html" Target="src\app\adm-years\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters-list.tpl.html" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters.js" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-teams\teams-list.tpl.html" Target="src\app\adm-teams\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-teams\teams.js" Target="src\app\adm-teams\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-categories\categories-list.tpl.html" Target="src\app\adm-categories\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-categories\categories.js" Target="src\app\adm-categories\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-plans\plans-list.tpl.html" Target="src\app\adm-plans\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-plans\plans.js" Target="src\app\adm-plans\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-actions\actions-list.tpl.html" Target="src\app\adm-actions\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-actions\actions.js" Target="src\app\adm-actions\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-settings\settings-list.tpl.html" Target="src\app\adm-settings\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-settings\settings.js" Target="src\app\adm-settings\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction-progress.html" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-accountable\accountable-list.tpl.html" Target="src\app\adm-accountable\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-accountable\accountable.js" Target="src\app\adm-accountable\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\services\accountable.js" Target="src\common\services\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-years\years-add.tpl.html" Target="src\app\adm-years\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-quarters\quarters-add.tpl.html" Target="src\app\adm-quarters\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-categories\categories-add.tpl.html" Target="src\app\adm-categories\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-plans\plans-add.tpl.html" Target="src\app\adm-plans\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\adm-actions\actions-add.tpl.html" Target="src\app\adm-actions\" Type="ElementFile" />
   </Files>
 </ProjectItem>

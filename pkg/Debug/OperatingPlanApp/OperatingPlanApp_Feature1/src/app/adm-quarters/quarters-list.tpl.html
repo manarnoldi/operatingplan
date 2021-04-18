@@ -1,0 +1,48 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to DashBoard" link="dashboard"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <add-btn link="addAdminQuarter" title="Add Plan Quarters"></add-btn>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Plan Quater</th>
+                                    <th>Abbreviation</th>
+                                    <th style="min-width: 150px"></th>
+                                </tr>
+
+                                <tr dir-paginate="quarter in ctrl.quarters | itemsPerPage: 10">
+                                    <td><span>{{quarter.title}}</span></td>
+                                    <td><span>{{quarter.abbr}}</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a href="#editAdminQuarter/{{quarter.id}}">Edit</a>
+                                                    <a ng-click="ctrl.DeleteRecord(quarter.id)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12">
+                        <dir-pagination-controls boundary-links="true" template-url="common/directives/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

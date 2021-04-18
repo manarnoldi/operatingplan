@@ -1,0 +1,73 @@
+﻿<div class="col-md-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{progress.update ? "Update": "Add"}} Output Quarter Progress</h3>
+        </div>
+        <form method="post" name="frm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="span-border">
+                            <label class="control-label">Target Output:</label>
+                            <span class="form-control-static"> {{progress.output.output}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="span-border">
+                            <label class="control-label">Lead Team:</label>
+                            <span class="form-control-static"> {{progress.output.leadteam.title}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="span-border">
+                            <label class="control-label">Individual Responsible:</label>
+                            <span class="form-control-static"> {{progress.output.responsible.title}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label">Notes: <span class="asteriskField">*</span></label>
+                            <textarea class="form-control" rows="5" ng-model="progress.notes" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Quarter: <span class="asteriskField">*</span></label>
+                            <select ng-model="progress.quarter" ng-options="x.title for x in progress.quarters track by x.id" class="select form-control" required>
+                                <option value="" class="" selected="selected">-- Choose Quarter --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label">Progress: <span class="asteriskField">*</span></label>
+                            <textarea class="form-control" rows="5" ng-model="progress.progresstext" required></textarea>
+                        </div>
+                    </div>                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Progress in (0-100)%: <span class="asteriskField">*</span></label>
+                            <input type="number" min="0" max="100" class="form-control" ng-model="progress.progressno" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div>
+                        <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, progress);" ng-disabled="!frm.$valid">
+                            {{progress.update ? "Update": "Add"}} and close
+                        </button>
+                        <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

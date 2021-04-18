@@ -1,0 +1,46 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to Plan Quarters List" link="listAdminQuarters"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="panel panel-info">
+                    <div class="panel-heading pnl-heading">{{ctrl.action == 'add' ? 'ADD' : 'EDIT'}} PLAN QUARTER INFORMATION</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">Quarter: <span class="asteriskField">*</span></label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.quarter.title"
+                                           ng-required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Abbreviation</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           ng-model="ctrl.quarter.abbr"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer clearfix">
+                        <div class="form-group pull-right">
+                            <a href="" class="btn btn-success" ng-click="ctrl.AddRecord()">
+                                <i class="fa fa-save"></i> {{  ctrl.action == 'edit' ? 'Update': 'Add' }} Record
+                            </a>
+                            <a href="#listAdminQuarters" class="btn btn-warning ">
+                                <i class="fa fa-cut"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

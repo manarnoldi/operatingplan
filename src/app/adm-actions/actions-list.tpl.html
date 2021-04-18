@@ -1,0 +1,80 @@
+﻿<div class="bootstrap-iso ng-scope">
+    <back-btn title="Back to DashBoard" link="dashboard"></back-btn>
+    <div class="row">
+        <div class="col-md-3">
+            <admin-menu menu-items="ctrl.links"></admin-menu>
+        </div>
+        <div class="col-md-9">
+            <div class="admin-body">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="control-label">Plan Name:</label>
+                            <select ng-model="ctrl.plan" ng-options="x.title for x in ctrl.plans track by x.id" class="select form-control">
+                                <option value="" class="" selected="selected">--Select Plan Name--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label">Action:</label>
+                            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.searchPlanActions()" type="button">
+                                <i class="fa fa-spinner"></i>Search
+                            </button>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2" >
+                            <div class="pull-right admin-add-btn">
+                                <a ng-click="ctrl.addPlanAction('add')" class="btn btn-sm btn-success">
+                                    <i class="fa fa-plus-circle"></i> Add Plan Action
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Action No</th>
+                                    <th>Action Name</th>
+                                    <th>Category</th>
+                                    <th>Accountable</th>
+                                    <th>Indicators</th>
+                                    <th>Status</th>
+                                    <th style="min-width: 150px"></th>
+                                </tr>
+
+                                <tr dir-paginate="action in ctrl.planactions | itemsPerPage: 10">
+                                    <td><span>{{action.actionno}}</span></td>
+                                    <td><span>{{action.actionname}}</span></td>
+                                    <td><span>{{action.category.title}}</span></td>
+                                    <td><span>{{action.accountable.title}}</span></td>
+                                    <td><span>{{action.indicators}}</span></td>
+                                    <td><span>{{action.status}}</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a ng-click="ctrl.addPlanAction('edit', action.id)">Edit</a>
+                                                    <a ng-click="ctrl.DeleteRecord(action.id)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12">
+                        <dir-pagination-controls boundary-links="true" template-url="common/directives/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
