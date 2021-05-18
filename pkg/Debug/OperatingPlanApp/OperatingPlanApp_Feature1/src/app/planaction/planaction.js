@@ -80,6 +80,7 @@
             passdata.years = ctrl.years;
             passdata.year = target.year;
             passdata.target = target.target;
+            passdata.review = target.review;
             passdata.id = target.id;
             passdata.update = true;
             var targetsDW = { scopeVariableName: 'passdata', dataObject: passdata };

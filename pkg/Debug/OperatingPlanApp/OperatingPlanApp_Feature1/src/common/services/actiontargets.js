@@ -16,7 +16,7 @@
 
         svc.getAllItems = function (actionid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,Editor/Id,Editor/Title,Modified&"+
+            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,YearReview,Editor/Id,Editor/Title,Modified&"+
             "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
             ShptRestService
                 .getListItems(listname, queryParams)
@@ -31,6 +31,7 @@
                         target.year = _.isNil(o.TargetYear) ? "" : { id: o.TargetYear.Id, title: o.TargetYear.Title };
                         target.updatedate = new Date(o.Modified);
                         target.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
+                        target.review = o.YearReview;
                         actionTargetsList.push(target);
                     });
                     defer.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
@@ -56,7 +57,8 @@
                     Title: target.actionno + "-"+ target.year.title +" Target",
                     PlanActionId: target.actionid,
                     AnnualTarget: target.target,
-                    TargetYearId: target.year.id
+                    TargetYearId: target.year.id,
+                    YearReview: target.review
                 };
 
                 ShptRestService
@@ -86,7 +88,8 @@
                     Title: target.title,
                     PlanActionId: target.actionid,
                     AnnualTarget: target.target,
-                    TargetYearId: target.year.id
+                    TargetYearId: target.year.id,
+                    YearReview: target.review
                 };
 
                 ShptRestService
@@ -95,6 +98,7 @@
                         _.forEach(actionTargetsList, function (t) {
                             if (t.id == target.id) {
                                 t.target = target.target;
+                                t.review = target.review;
                                 t.updatedate = new Date();
                                 t.updateby = { id: svc.userid, title: svc.usertitle };
                             }

@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-md-6 page-font">
-        <i class="fa fa-file-text"></i> Operating Plan Actions Dashboard
+        <i class="fa fa-file-text"></i> Operating Plan Deliverables Dashboard
     </div>
     <div class="col-md-6">
         <div class="pull-right">
@@ -34,7 +34,7 @@
         <div class="col-md-3"></div>
 
         <div class="col-md-3">
-            <label class="control-label">Action:</label>
+            <label class="control-label">Search:</label>
             <button class="btn btn-sm btn-success form-control" ng-click="ctrl.searchPlanActions()" type="button">
                 <i class="fa fa-spinner"></i>Search
             </button>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <div class="huge ng-binding">{{ctrl.categoriesall}}</div>
-                            <div>All Plan Actions</div>
+                            <div>All Plan Deliverables</div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
             <thead>
                 <tr>
                     <th style="min-width:40px;">No</th>
-                    <th style="min-width:200px;">Plan Action</th>
+                    <th style="min-width:200px;">Plan Deliverable</th>
                     <th style="min-width:80px;">Category</th>
                     <th style="min-width:90px;">Accountable</th>
                     <th style="min-width:200px;">Indicator</th>
@@ -141,10 +141,10 @@
                     <td><span>{{action.status}}</span></td>
                     <td>
                         <div>
-                            <a href="#/viewAction/{{action.id}}/{{ctrl.status}}" class="btn btn-success btn-xs" title="View Action">
+                            <a href="#/viewAction/{{action.id}}/{{ctrl.status}}" class="btn btn-success btn-xs" title="View Deliverable">
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                             </a> |
-                            <a href="#/updateAction/{{action.id}}/{{ctrl.status}}" class="btn btn-warning btn-xs" title="Update Action">
+                            <a href="#/updateAction/{{action.id}}/{{ctrl.status}}" class="btn btn-warning btn-xs" title="Update Deliverable">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
                         </div>
@@ -154,7 +154,7 @@
             <thead>
                 <tr>
                     <th style="min-width:40px;">No</th>
-                    <th style="min-width:200px;">Plan Action</th>
+                    <th style="min-width:200px;">Plan Deliverable</th>
                     <th style="min-width:80px;">Category</th>
                     <th style="min-width:90px;">Accountable</th>
                     <th style="min-width:200px;">Indicator</th>

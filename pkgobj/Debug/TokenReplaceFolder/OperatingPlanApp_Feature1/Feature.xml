@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.1.0.0">
+<Feature xmlns="http://schemas.microsoft.com/sharepoint/" Description="SharePoint Add-in Feature" Id="fd52dd51-6902-4b24-8065-68c53e0597ed" Scope="Web" Title="OperatingPlanApp Feature1" Version="1.1.0.2">
   <ElementManifests>
     <ElementManifest Location="Pages\Elements.xml" />
     <ElementManifest Location="Scripts\Elements.xml" />

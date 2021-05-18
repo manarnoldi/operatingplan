@@ -12,19 +12,19 @@
         </div>
     </div>
     <div class="panel panel-info">
-        <div class="panel-heading pnl-heading">PLAN ACTION DETAILS</div>
+        <div class="panel-heading pnl-heading">PLAN DELIVERABLE DETAILS</div>
         <div class="panel-body">
             <div class="well">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="span-border">
-                            <label class="control-label">Plan Action:</label>
+                            <label class="control-label">Plan Deliverable:</label>
                             <span class="form-control-static"> {{ctrl.action.actionno}}. {{ctrl.action.actionname}}</span>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="span-border">
-                            <label class="control-label">Action Category:</label>
+                            <label class="control-label">Deliverable Category:</label>
                             <span class="form-control-static"> {{ctrl.action.category.title}}</span>
                         </div>
                     </div>
@@ -73,16 +73,19 @@
                                 <thead>
                                     <tr>
                                         <th style="min-width:100px;">Year</th>
-                                        <th style="min-width:300px;">Target Details</th>
+                                        <th style="min-width:250px;">Target Details</th>
+                                        <th style="min-width:250px;">Target Review</th>
                                         <th style="min-width:150px;">Modified By</th>
                                         <th style="min-width:150px;">Modified Date</th>
                                         <th style="min-width:80px;" ng-if="!ctrl.paramview">Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <tr ng-repeat="target in ctrl.actiontargets">
                                         <td><span><a ng-click="ctrl.showOutputs(target)">{{target.year.title}}</a></span></td>
                                         <td><span>{{target.target}}</span></td>
+                                        <td><span>{{target.review}}</span></td>
                                         <td><span>{{target.updateby.title}}</span></td>
                                         <td><span>{{target.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
                                         <td ng-if="!ctrl.paramview">

@@ -1,14 +1,14 @@
 ﻿<div class="col-md-12">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>{{pd.planaction.action == 'add' ? 'ADD' : 'EDIT'}} PLAN ACTION INFORMATION</h3>
+            <h3>{{pd.planaction.action == 'add' ? 'ADD' : 'EDIT'}} PLAN DELIVERABLE INFORMATION</h3>
         </div>
         <form method="post" name="frm" novalidate>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label">Action Name: <span class="asteriskField">*</span></label>
+                            <label class="control-label">Deliverable Name: <span class="asteriskField">*</span></label>
                             <textarea class="form-control" ng-model="pd.planaction.actionname" rows="3"  ng-required="true"></textarea>
                         </div>
                     </div>
@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Action No: <span class="asteriskField">*</span></label>
+                            <label class="control-label">Deliverable No: <span class="asteriskField">*</span></label>
                             <input class="form-control" type="number" min="1" ng-model="pd.planaction.actionno" ng-required="true">
                         </div>
                     </div>

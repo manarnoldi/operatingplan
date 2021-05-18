@@ -108,7 +108,7 @@ angular
                 { 'id': 4, title: 'Plan Teams', icon: 'fa-users', url: '#listAdminTeams', class: '', target: '_parent' },
                 { 'id': 5, title: 'Plan Categories', icon: 'fa-list', url: '#listAdminCategories', class: '', target:'_parent' },
                 { 'id': 6, title: 'Plans', icon: 'fa-list-ol', url: '#listAdminPlans', class: '', target:'_parent' },
-                { 'id': 7, title: 'Plan Actions', icon: 'user-check', url: '#listAdminActions', class: '', target: '_parent' },
+                { 'id': 7, title: 'Plan Deliverables', icon: 'user-check', url: '#listAdminActions', class: '', target: '_parent' },
                 { 'id': 8, title: 'Plan Settings', icon: 'fa-cogs', url: '#listAdminSettings', class: '', target:'_parent' }];
 
             var activeLink = _.find(links, ['id', activeLinkId]);
