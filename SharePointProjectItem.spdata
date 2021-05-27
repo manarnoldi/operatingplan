@@ -75,5 +75,7 @@
     <ProjectItemFile Source="src\app\adm-categories\categories-add.tpl.html" Target="src\app\adm-categories\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\adm-plans\plans-add.tpl.html" Target="src\app\adm-plans\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\adm-actions\actions-add.tpl.html" Target="src\app\adm-actions\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planaction-outputs.html" Target="src\app\planaction\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\planaction\planoutputs.js" Target="src\app\planaction\" Type="ElementFile" />
   </Files>
 </ProjectItem>

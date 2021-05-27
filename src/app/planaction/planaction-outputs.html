@@ -1,0 +1,211 @@
+﻿<div class="row">
+    <div class="col-md-6 page-font">
+        <i class="fa fa-tasks"></i> Operating Plan Expected Outputs
+    </div>
+    <div class="col-md-6">
+        <div class="pull-right">
+            <a href="#dashboard" class="btn btn-sm btn-warning">
+                <i class="fa fa-angle-double-left"></i> Back to Dashboard
+            </a>
+            <a href="#listAdminYears" class="btn btn-sm btn-danger" ng-if="ctrl.isAdmin">
+                <i class="fa fa-cog"></i> Administration
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-4">
+            <label class="control-label">
+                Plan Name:
+            </label>
+            <select ng-model="ctrl.plan" ng-options="x.title for x in ctrl.plans track by x.id" class="select form-control">
+                <option value="" class="" selected="selected">--Select Plan Name--</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="control-label">
+                Target Year:
+            </label>
+            <select ng-model="ctrl.year" ng-options="x.title for x in ctrl.years track by x.id" class="select form-control">
+                <option value="" class="" selected="selected">--Select Reporting Year--</option>
+            </select>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <label class="control-label">Search:</label>
+            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.searchExpectedOutputs()" type="button">
+                <i class="fa fa-spinner"></i>Search
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading pnl-heading">TARGET OUTPUTS</div>
+    <div class="panel-body">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right admin-add-btn">
+                        <a ng-click="ctrl.addOutput()" class="btn btn-sm btn-success">
+                            <i class="fa fa-plus-circle"></i>
+                            Add Target Output
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contract-table" style="overflow:scroll">
+                        <table datatable="ng" dt-options="ctrl.tableOptions" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:30px;">No</th>
+                                    <th style="min-width:180px;">Output</th>
+                                    <th style="min-width:120px;">Lead Team</th>
+                                    <th style="min-width:120px;">Individual Responsible</th>
+                                    <th style="min-width:120px;">Other Teams Required</th>
+                                    <th style="min-width:140px;">Modified By</th>
+                                    <th style="min-width:140px;">Modified Date</th>
+                                    <th style="min-width:60px;">Progress</th>
+                                    <th style="min-width:70px;">Status</th>
+                                    <th style="min-width:80px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="out in ctrl.outputs">
+                                    <td><span><a ng-click="ctrl.showProgress(out)">{{out.num}}.</a></span></td>
+                                    <td><span><a ng-click="ctrl.showProgress(out)">{{out.output}}</a></span></td>
+                                    <td><span>{{out.leadteam.title}}</span></td>
+                                    <td><span>{{out.responsible.title}}</span></td>
+                                    <td>
+                                        <span ng-repeat="team in out.otherteams">
+                                            {{team.title}}<font ng-show="!$last">,</font>
+                                        </span>
+                                    </td>
+                                    <td><span>{{out.updateby.title}}</span></td>
+                                    <td><span>{{out.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{out.progress}}"
+                                                 aria-valuemin="0" aria-valuemax="100" ng-style="{width:(out.progress+'%')}">
+                                                {{out.progress}}% Complete
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span>{{out.status}}</span></td>
+                                    <td>
+                                        <div ng-if="ctrl.currentUserId == out.responsible.id">
+                                            <a ng-click="ctrl.updateOutput(out)" class="btn btn-warning btn-xs" title="Update Output">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a> |
+                                            <a ng-click="ctrl.deleteOutput(out)" class="btn btn-danger btn-xs" title="Delete Output">
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th style="min-width:50px;">No</th>
+                                    <th style="min-width:200px;">Output</th>
+                                    <th style="min-width:120px;">Lead Team</th>
+                                    <th style="min-width:120px;">Individual Responsible</th>
+                                    <th style="min-width:120px;">Other Teams Required</th>
+                                    <th style="min-width:140px;">Modified By</th>
+                                    <th style="min-width:140px;">Modified Date</th>
+                                    <th style="min-width:60px;">Progress</th>
+                                    <th style="min-width:100px;">Status</th>
+                                    <th style="min-width:80px;">Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading pnl-heading">QUARTER TARGET PROGRESS UPDATES</div>
+    <div class="panel-body">
+        <div class="well" ng-if=" ctrl.currentoutput != ''">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="span-border">
+                        <label class="control-label">Target Output:</label>
+                        <span class="form-control-static"> {{ctrl.currentoutput.output}}</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="span-border">
+                        <label class="control-label">Lead Team:</label>
+                        <span class="form-control-static"> {{ ctrl.currentoutput.leadteam.title}}</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="span-border">
+                        <label class="control-label">Individual Responsible:</label>
+                        <span class="form-control-static"> {{ ctrl.currentoutput.responsible.title}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well">
+            <div class="row" ng-if="ctrl.currentUserId == ctrl.currentoutput.responsible.id">
+                <div class="col-md-12">
+                    <div class="pull-right admin-add-btn">
+                        <a ng-click="ctrl.addProgress()" class="btn btn-sm btn-success">
+                            <i class="fa fa-plus-circle"></i>
+                            Add Quarter Progress
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contract-table">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:100px;">Quarter</th>
+                                    <th style="min-width:250px;">Notes</th>
+                                    <th style="min-width:250px;">Progress</th>
+                                    <th style="min-width:50px;">ProgressNo</th>
+                                    <th style="min-width:150px;">Modified By</th>
+                                    <th style="min-width:150px;">Modified Date</th>
+                                    <th style="min-width:80px;" ng-if="ctrl.currentUserId == ctrl.currentoutput.responsible.id">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="prog in ctrl.progress">
+                                    <td><span>{{prog.quarter.title}}</span></td>
+                                    <td><span>{{prog.notes}}</span></td>
+                                    <td><span>{{prog.progresstext}}</span></td>
+                                    <td><span>{{prog.progressno}}</span></td>
+                                    <td><span>{{prog.updateby.title}}</span></td>
+                                    <td><span>{{prog.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
+                                    <td ng-if="ctrl.currentUserId == ctrl.currentoutput.responsible.id">
+                                        <div>
+                                            <a ng-click="ctrl.updateProgress(prog)" class="btn btn-warning btn-xs" title="Update Progress">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </a> |
+                                            <a ng-click="ctrl.deleteProgress(prog)" class="btn btn-danger btn-xs" title="Delete Progress">
+                                                <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -75,7 +75,7 @@
     <script type="text/javascript" src="app/adm-settings/settings.js"></script>
     <script type="text/javascript" src="app/planaction/planaction.js"></script>
     <script type="text/javascript" src="app/planactions/planactions.js"></script>
-
+    <script type="text/javascript" src="app/planaction/planoutputs.js"></script>
     <script type="text/javascript" src="app/App.js"></script>
 </asp:Content>
 

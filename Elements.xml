@@ -74,5 +74,7 @@
     <File Path="src\app\adm-categories\categories-add.tpl.html" Url="src/app/adm-categories/categories-add.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\app\adm-plans\plans-add.tpl.html" Url="src/app/adm-plans/plans-add.tpl.html" ReplaceContent="TRUE" />
     <File Path="src\app\adm-actions\actions-add.tpl.html" Url="src/app/adm-actions/actions-add.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planaction-outputs.html" Url="src/app/planaction/planaction-outputs.html" ReplaceContent="TRUE" />
+    <File Path="src\app\planaction\planoutputs.js" Url="src/app/planaction/planoutputs.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

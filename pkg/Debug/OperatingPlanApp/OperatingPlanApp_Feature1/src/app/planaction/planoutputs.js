@@ -2,48 +2,37 @@
     'use strict';
 
     angular
-        .module('planaction', [])
-        .controller('planactionCtrl', PlanActionCtrlFunction);
+        .module('planoutputs', [])
+        .controller('planoutputsCtrl', PlanOutputsCtrlFunction);
 
-    PlanActionCtrlFunction.$inject = ['$q', '$route', '$routeParams', '$dialog', '$dialogAlert', '$dialogConfirm', 'actionTargetsSvc', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc', 'quartersSvc', 'plansSvc','planActionsSvc', 'teamsSvc', 'accountableSvc', 'spinnerService', 'growl'];
-    function PlanActionCtrlFunction($q, $route, $routeParams, $dialog, $dialogAlert, $dialogConfirm, actionTargetsSvc, targetOutputsSvc, outputProgressSvc, yearsSvc, quartersSvc, plansSvc, planActionsSvc, teamsSvc, accountableSvc, spinnerService, growl) {
+    PlanOutputsCtrlFunction.$inject = ['$q', '$dialog', '$dialogAlert', '$dialogConfirm', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc', 'quartersSvc', 'plansSvc', 'teamsSvc', 'spinnerService', 'growl'];
+    function PlanOutputsCtrlFunction($q, $dialog, $dialogAlert, $dialogConfirm, targetOutputsSvc, outputProgressSvc, yearsSvc, quartersSvc, plansSvc, teamsSvc, spinnerService, growl) {
         var ctrl = this;
         spinnerService.show('spinner1');
-        ctrl.actionid = parseInt($routeParams.id);
         ctrl.currentUserId = _spPageContextInfo.userId;
         ctrl.tableOptions = {
             "scrollX": true
         };
-        ctrl.ragratingcolor = 'default';
-        ctrl.searchstatus = $routeParams.searchstatus;
+
         ctrl.hostWebUrl = _spPageContextInfo.webAbsoluteUrl;
-        ctrl.paramview = $route.current.$$route.paramview;
-        ctrl.accountable = false;
-        ctrl.allOutputs = false;
         ctrl.outputs = [];
         ctrl.progress = [];
         var promises = [];
-        promises.push(planActionsSvc.getItemById(ctrl.actionid));
-        promises.push(actionTargetsSvc.getAllItems(ctrl.actionid));
-        promises.push(yearsSvc.getAllItems());
+
         promises.push(teamsSvc.getAllItems());
         promises.push(quartersSvc.getAllItems());
-        promises.push(accountableSvc.checkIfAccountable(ctrl.currentUserId, ctrl.actionid));
         promises.push(plansSvc.getAllItems());
+        promises.push(yearsSvc.getAllItems());
 
         $q
             .all(promises)
             .then(function (results) {
-                ctrl.action = results[0];
-                ctrl.actiontargets = results[1];
-                ctrl.years = results[2];
-                ctrl.teams = results[3];
-                ctrl.quarters = results[4];
+                ctrl.teams = results[0];
+                ctrl.quarters = results[1];
                 ctrl.statuses = ["Active", "Completed"];
-                ctrl.currenttarget = "";
                 ctrl.currentoutput = "";
-                ctrl.accountable = results[5];
-                ctrl.plans = results[6];
+                ctrl.plans = results[2];
+                ctrl.years = results[3];
 
                 ctrl.config = {
                     checkBoxes: true,
@@ -63,116 +52,22 @@
             if (!ctrl.plan) {
                 $dialogAlert('Select the plan to search!', 'Important Information');
                 return;
+            } else if (!ctrl.year) {
+                $dialogAlert('Select the year to search!', 'Important Information');
+                return;
             }
             spinnerService.show('spinner1');
             targetOutputsSvc
-                .getPlanOutputs(ctrl.plan.id)
+                .getPlanOutputs(ctrl.plan.id, ctrl.year.id)
                 .then(function (outs) {
                     ctrl.outputs = outs;
-                    $dialogAlert('[' + res.length + '] outputs have been found for target.', 'Successful Transaction');
+                    $dialogAlert('[' + outs.length + '] outputs have been found for target.', 'Successful Transaction');
                 })
                 .catch(function (error) {
                     $dialogAlert(error, 'Unsuccessful Transaction');
                 })
                 .finally(function () {
                     spinnerService.closeAll();
-                });
-        };
-
-        ctrl.updateRagRating = function (actid, col) {
-            if (!ctrl.accountable) {
-                $dialogAlert('You are not the accountable for the deliverable hence cannot update it!', 'Important Information');
-                return;
-            }
-
-            $dialogConfirm('Update target rating to color: ' + col + '?', 'Confirm Transaction')
-                .then(function () {
-                    spinnerService.show('spinner1');
-                    planActionsSvc
-                        .updateRagRating(actid, col)
-                        .then(function (res) {
-                            ctrl.action.ragrating = col;
-                            $dialogAlert('Target rating color updated successfully!', 'Successful Transaction');
-                        })
-                        .catch(function (error) {
-                            growl.error(error);
-                        })
-                        .finally(function () {
-                            spinnerService.closeAll();
-                        });
-                });
-        };
-
-        ctrl.addYearTarget = function () {
-            var passdata = {};
-            passdata.years = ctrl.years;
-            passdata.update = false;
-            var targetsDW = { scopeVariableName: 'passdata', dataObject: passdata };
-            $dialog('app/planaction/planaction-target.html', 'lg', targetsDW)
-                .then(function (target) {
-                    target.actionid = ctrl.actionid;
-                    target.actionno = ctrl.action.actionno;
-                    spinnerService.show('spinner1');
-                    actionTargetsSvc
-                        .AddItem(target)
-                        .then(function (res) {
-                            ctrl.actiontargets = res;
-                            $dialogAlert('Action year target added successfully!', 'Successful Transaction');
-                        })
-                        .catch(function (error) {
-                            $dialogAlert(error, 'Unable to add alert record');
-                        })
-                        .finally(function () {
-                            spinnerService.closeAll();
-                        });
-                });
-        };
-
-        ctrl.updateYearTarget = function (target) {
-            var passdata = {};
-            passdata.years = ctrl.years;
-            passdata.year = target.year;
-            passdata.target = target.target;
-            passdata.review = target.review;
-            passdata.id = target.id;
-            passdata.update = true;
-            var targetsDW = { scopeVariableName: 'passdata', dataObject: passdata };
-            $dialog('app/planaction/planaction-target.html', 'lg', targetsDW)
-                .then(function (target) {
-                    target.actionid = ctrl.actionid;
-                    target.actionno = ctrl.action.actionno;
-                    spinnerService.show('spinner1');
-                    actionTargetsSvc
-                        .UpdateItem(target)
-                        .then(function (res) {
-                            ctrl.actiontargets = res;
-                            $dialogAlert('Action year target updated successfully!', 'Successful Transaction');
-                        })
-                        .catch(function (error) {
-                            $dialogAlert(error, 'Unsuccessful Transaction');
-                        })
-                        .finally(function () {
-                            spinnerService.closeAll();
-                        });
-                });
-        };
-
-        ctrl.deleteYearTarget = function (target) {
-            $dialogConfirm('Delete year target?', 'Confirm Transaction')
-                .then(function () {
-                    spinnerService.show('spinner1');
-                    actionTargetsSvc
-                        .DeleteItem(target.id)
-                        .then(function (res) {
-                            ctrl.actiontargets = res;
-                            $dialogAlert('Action year target deleted successfully!', 'Successful Transaction');
-                        })
-                        .catch(function (error) {
-                            $dialogAlert(error, 'Unsuccessful Transaction');
-                        })
-                        .finally(function () {
-                            spinnerService.closeAll();
-                        });
                 });
         };
 

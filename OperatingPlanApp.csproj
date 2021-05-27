@@ -72,11 +72,13 @@
     <Content Include="src\app\App.js" />
     <Content Include="src\app\planactions\planactions.tpl.html" />
     <Content Include="src\app\planactions\planactions.js" />
+    <Content Include="src\app\planaction\planaction-outputs.html" />
     <Content Include="src\app\planaction\planaction-progress.html" />
     <Content Include="src\app\planaction\planaction-output.html" />
     <Content Include="src\app\planaction\planaction-target.html" />
     <Content Include="src\app\planaction\planaction.js" />
     <Content Include="src\app\planaction\planaction-update.html" />
+    <Content Include="src\app\planaction\planoutputs.js" />
     <Content Include="src\common\angular-datatables.min.js" />
     <Content Include="src\common\directives\add-btn\add-btn.dir.js" />
     <Content Include="src\common\directives\add-btn\add-btn.tpl.html" />

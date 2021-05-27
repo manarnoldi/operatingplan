@@ -16,7 +16,7 @@
         svc.getAllItems = function (planid) {
             var defer = $q.defer();
             var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable/Id,Accountable/Title,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
-                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan,Accountable&$filter=Plan/Id eq " + planid;
+                "PlanCategory/Code,PlanCategory/Abbr,RAGRating&$expand=PlanCategory,Plan,Accountable&$filter=Plan/Id eq " + planid;
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -31,6 +31,7 @@
                         planaction.accountable = _.isNil(o.Accountable) ? "" : { id: o.Accountable.Id, title: o.Accountable.Title };
                         planaction.indicators = o.Indicators;
                         planaction.status = o.Status;
+                        planaction.ragrating = o.RAGRating;
                         planaction.category = _.isNil(o.PlanCategory) ? "" : { id: o.PlanCategory.Id, title: o.PlanCategory.Title, code: o.PlanCategory.Code, abbr: o.PlanCategory.Abbr };
                         planActionsList.push(planaction);
                     });
@@ -61,7 +62,8 @@
                     AccountableId: planaction.accountable.id,
                     Indicators: planaction.indicators,
                     Status: planaction.status,
-                    PlanCategoryId: planaction.category.id
+                    PlanCategoryId: planaction.category.id,
+                    RAGRating: 'Green'
                 };
 
                 ShptRestService
@@ -75,6 +77,29 @@
                     });
             }
             return defer.promise;
+        };
+
+        svc.updateRagRating = function (actionid, color) {
+            var deferRagRating = $q.defer();
+            var itemExists = _.some(planActionsList, ['id', actionid]);
+            if (!itemExists) {
+                deferRagRating.reject("The item to be edited does not exist. Contact IT Service desk for support.");
+            } else {
+                var data = {
+                    RAGRating: color
+                };
+
+                ShptRestService
+                    .updateListItem(listname, actionid, data)
+                    .then(function (response) {
+                        deferRagRating.resolve(true);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        deferRagRating.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                    });
+            }
+            return deferRagRating.promise;
         };
 
         svc.UpdateItem = function (planaction) {
@@ -130,6 +155,9 @@
 
         svc.getPlansSearched = function (planid, status) {
             var deferAction = $q.defer();
+            if (!planid) {
+                deferAction.reject("No active plan has been set.");
+            } else {
             svc
                 .getAllItems(planid)
                 .then(function (planactions) {
@@ -146,13 +174,14 @@
                     deferAction.reject(error);
                     console.log(error);
                 });
+            }
             return deferAction.promise;
         };
 
         svc.getItemById = function (planid) {
             var deferItemById = $q.defer();
             var queryParams = "$select=Id,Title,Plan/Id,Plan/Title,ActionNo,ActionName,Accountable/Id,Accountable/Title,Indicators,Status,PlanCategory/Id,PlanCategory/Title," +
-                "PlanCategory/Code,PlanCategory/Abbr&$expand=PlanCategory,Plan,Accountable";
+                "PlanCategory/Code,PlanCategory/Abbr,RAGRating&$expand=PlanCategory,Plan,Accountable";
             ShptRestService
                 .getListItemById(listname, planid, queryParams)
                 .then(function (res) {
@@ -165,6 +194,7 @@
                     planaction.accountable = _.isNil(res.Accountable) ? "" : { id: res.Accountable.Id, title: res.Accountable.Title };
                     planaction.indicators = res.Indicators;
                     planaction.status = res.Status;
+                    planaction.ragrating = res.RAGRating;
                     planaction.category = _.isNil(res.PlanCategory) ? "" : { id: res.PlanCategory.Id, title: res.PlanCategory.Title, code: res.PlanCategory.Code, abbr: res.PlanCategory.Abbr };
                     deferItemById.resolve(planaction);
                 })

@@ -17,6 +17,7 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Year Span</th>
+                                    <th>Plan Active</th>
                                     <th style="min-width: 150px"></th>
                                 </tr>
 
@@ -26,6 +27,7 @@
                                     <td><span>{{plan.startdate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
                                     <td><span>{{plan.enddate | date: 'dd/MM/yyyy' : 'europe/london'}}</span></td>
                                     <td><span>{{plan.yearsspan}}</span></td>
+                                    <td><span>{{plan.activeplan}}</span></td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-toggle="dropdown">

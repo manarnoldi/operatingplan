@@ -50,7 +50,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group settings">
+                                    <label class="control-label">Plan Active?</label>
+                                    <div class="form-control">
+                                        <i class="fa fa-toggle-on active" ng-if="ctrl.plan.activeplan" ng-click="ctrl.changeStatus()"></i>
+                                        <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-if="!ctrl.plan.activeplan" ng-click="ctrl.changeStatus();"></i>
+                                    </div>                                    
+
+                                    <!--<div class="radio">
+                                        <label><input type="radio" ng-model="ctrl.plan.activeplan" ng-false-value="ctrl.plan.activeplan">No</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" ng-model="ctrl.plan.activeplan" ng-true-value="ctrl.plan.activeplan">Yes</label>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Plan Description</label>
                                     <textarea class="form-control" ng-model="ctrl.plan.description" rows="5"></textarea>

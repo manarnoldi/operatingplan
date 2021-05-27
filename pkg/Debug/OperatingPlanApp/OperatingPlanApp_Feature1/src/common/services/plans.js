@@ -15,7 +15,7 @@
 
         svc.getAllItems = function () {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,Description,StartDate,EndDate,YearsSpan";
+            var queryParams = "$select=Id,Title,Description,StartDate,EndDate,YearsSpan,ActivePlan";
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -28,6 +28,7 @@
                         plan.startdate = new Date(o.StartDate);
                         plan.enddate = new Date(o.EndDate);
                         plan.yearsspan = o.YearsSpan;
+                        plan.activeplan = o.ActivePlan;
                         plansList.push(plan);
                     });
                     defer.resolve(plansList);
@@ -52,7 +53,8 @@
                     Description: plan.description,
                     StartDate: plan.startdate,
                     EndDate: plan.enddate,
-                    YearsSpan: plan.yearsspan
+                    YearsSpan: plan.yearsspan,
+                    ActivePlan: plan.activeplan
                 };
 
                 ShptRestService
@@ -82,7 +84,8 @@
                     Description: plan.description,
                     StartDate: plan.startdate,
                     EndDate: plan.enddate,
-                    YearsSpan: plan.yearsspan
+                    YearsSpan: plan.yearsspan,
+                    ActivePlan: plan.activeplan
                 };
 
                 ShptRestService

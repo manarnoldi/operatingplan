@@ -4,6 +4,9 @@
     </div>
     <div class="col-md-6">
         <div class="pull-right">
+            <a href="#searchOutputs" class="btn btn-sm btn-warning">
+                <i class="fa fa-search"></i> Search Expected Outputs
+            </a>
             <a href="#listAdminYears" class="btn btn-sm btn-danger" ng-if="ctrl.isAdmin">
                 <i class="fa fa-cog"></i> Administration
             </a>
@@ -128,18 +131,19 @@
                     <th style="min-width:90px;">Accountable</th>
                     <th style="min-width:200px;">Indicator</th>
                     <th style="min-width:80px;">Status</th>
-                    <th style="min-width:80px;">Action</th>
+                    <!--<th style="min-width:80px;">Action</th>-->
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="action in ctrl.planactions">
-                    <td><span>{{action.title}}</span></td>
-                    <td><span>{{action.actionname}}</span></td>
+                <tr ng-repeat="action in ctrl.planactions"
+                    ng-style="{'background-color': (action.ragrating == 'Green') ? '#00FF0015' : (action.ragrating == 'Red') ? '#FF000015' : (action.ragrating == 'Amber') ? '#FFBF0015' : 'default'}">
+                    <td><span><a href="#/updateAction/{{action.id}}/{{ctrl.status}}">{{action.title}}</a></span></td>
+                    <td><span><a href="#/updateAction/{{action.id}}/{{ctrl.status}}">{{action.actionname}}</a></span></td>
                     <td><span>{{action.category.abbr}}</span></td>
                     <td><span>{{action.accountable.title}}</span></td>
                     <td><span>{{action.indicators}}</span></td>
                     <td><span>{{action.status}}</span></td>
-                    <td>
+                    <!--<td>
                         <div>
                             <a href="#/viewAction/{{action.id}}/{{ctrl.status}}" class="btn btn-success btn-xs" title="View Deliverable">
                                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -148,7 +152,7 @@
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </a>
                         </div>
-                    </td>
+                    </td>-->
                 </tr>
             </tbody>
             <thead>
@@ -159,7 +163,7 @@
                     <th style="min-width:90px;">Accountable</th>
                     <th style="min-width:200px;">Indicator</th>
                     <th style="min-width:80px;">Status</th>
-                    <th style="min-width:80px;">Action</th>
+                    <!--<th style="min-width:80px;">Action</th>-->
                 </tr>
             </thead>
         </table>

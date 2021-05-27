@@ -5,8 +5,8 @@
         .module('services.targetoutputs', [])
         .service('targetOutputsSvc', TargetOutputsSvc);
 
-    TargetOutputsSvc.$inject = ['$q', 'ShptRestService', 'outputProgressSvc'];
-    function TargetOutputsSvc($q, ShptRestService, outputProgressSvc) {
+    TargetOutputsSvc.$inject = ['$q', 'ShptRestService', 'planActionsSvc', 'actionTargetsSvc', 'outputProgressSvc'];
+    function TargetOutputsSvc($q, ShptRestService, planActionsSvc, actionTargetsSvc, outputProgressSvc) {
         var svc = this;
         var listname = 'PlanActionYearTargetOutputs';
         svc.userid = _spPageContextInfo.userId;
@@ -15,7 +15,7 @@
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
         svc.getAllItems = function (targetid) {
-            var defer = $q.defer();            
+            var defer = $q.defer();
             var queryParams = "$select=Id,Title,ActionYearTarget/Id,ActionYearTarget/Title,Output,LeadTeam/Id,LeadTeam/Title,IndividualResponsible/Id," +
                 "IndividualResponsible/Title,OtherTeamsRequired/Id,OtherTeamsRequired/Title,Status,OutputNum,Modified,Editor/Id,Editor/Title&" +
                 "$expand=ActionYearTarget,LeadTeam,IndividualResponsible,OtherTeamsRequired,Editor&$filter=ActionYearTarget/Id eq " + targetid;
@@ -39,7 +39,7 @@
                         output.status = o.Status;
                         output.num = o.OutputNum;
                         output.updatedate = new Date(o.Modified);
-                        output.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };                       
+                        output.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
                         progressProms.push(outputProgressSvc.getMaximumProgress(o.Id))
                         output.progress = 0;
                         OutputsList.push(output);
@@ -56,7 +56,7 @@
                         .catch(function (error) {
                             console.log(error);
                             defer.reject(error);
-                        });                    
+                        });
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -212,6 +212,56 @@
                 deferRemInd.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
             }
             return deferRemInd.promise;
+        };
+
+        svc.getPlanOutputs = (planId, yearId) => {
+            var deferplanOuts = $q.defer();
+            var targetproms = [];
+            var outproms = [];
+
+            planActionsSvc
+                .getAllItems(planId)
+                .then(function (actions) {
+                    _.forEach(actions, (action) => {
+                        targetproms.push(actionTargetsSvc.getAllItems(action.id));
+                    });
+
+                    $q
+                        .all(targetproms)
+                        .then(function (targets) {
+                            targets = _.filter(targets, function (tr) {
+                                return tr.length > 0;
+                            });
+
+                            _.forEach(targets, (target) => {
+                                _.forEach(target, function (t) {
+                                    if (t.year.id == yearId) {
+                                        outproms.push(svc.getAllItems(t.id));
+                                    }
+                                });
+                            });
+
+                            $q
+                                .all(outproms)
+                                .then(function (outputs) {
+                                    deferplanOuts.resolve(outputs);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                    deferplanOuts.reject("An error occured while getting the target outputs. Contact IT Service desk for support.");
+                                });
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            deferplanOuts.reject("An error occured while getting the deliverables targets. Contact IT Service desk for support.");
+                        });
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    deferplanOuts.reject("An error occured while getting the plan deliverables. Contact IT Service desk for support.");
+                });
+            return deferplanOuts.promise;
         };
     }
 })();

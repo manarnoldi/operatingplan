@@ -5,7 +5,7 @@
         .module('app', ['ngRoute', 'ngAnimate', 'directives.dirPagination', 'ui.bootstrap', 'ui.bootstrap.dialogs', 'selectFile', 'services.utilities', 'spNgModule', 'sarsha.spinner',
             'angular-growl', 'sp-peoplepicker', 'datatables', 'angularjs-dropdown-multiselect', 'services.settings', 'services.plancategories', 'services.plans', 'services.planactions',
             'services.actiontargets', 'services.years', 'services.quarters', 'services.accountable', 'services.targetoutputs', 'services.outputprogress', 'services.teams', 'dir.adminmenu', 'dir.backbtn',
-            'dir.addbtn', 'dir.adddocument', 'planactions', 'years', 'quarters', 'accountable', 'teams', 'categories', 'plans', 'actions', 'settings', 'planaction'])
+            'dir.addbtn', 'dir.adddocument', 'planactions', 'years', 'quarters', 'accountable', 'teams', 'categories', 'plans', 'actions', 'planoutputs', 'settings', 'planaction'])
         .constant("IS_APP_WEB", false)
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
@@ -26,6 +26,10 @@
                 templateUrl: 'app/planaction/planaction-update.html',
                 controller: 'planactionCtrl as ctrl',
                 paramview: true
+            })
+            .when('/searchOutputs', {
+                templateUrl: 'app/planaction/planaction-outputs.html',
+                controller: 'planoutputsCtrl as ctrl',
             })
             //Manage Admin Years
             .when('/listAdminYears', {

@@ -35,5 +35,22 @@
                 });
             return defer.promise;
         };
+
+        svc.checkIfAccountable = function(userId, itemId) {
+            var deferAcc = $q.defer()
+            var qParams = "$select=Id,Title,Accountable/Id,Accountable/Title&$expand=Accountable";
+            ShptRestService
+                .getListItemById(listname, itemId, qParams)
+                .then(function (res) {
+                    var curUserExists = _.some(res.Accountable.results, ['Id', userId]);
+                    deferAcc.resolve(curUserExists);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    deferAcc.reject(error);
+                });
+
+            return deferAcc.promise;
+        };
     }
 })();

@@ -89,6 +89,8 @@
     <ElementFile Location="src\app\adm-categories\categories-add.tpl.html" />
     <ElementFile Location="src\app\adm-plans\plans-add.tpl.html" />
     <ElementFile Location="src\app\adm-actions\actions-add.tpl.html" />
+    <ElementFile Location="src\app\planaction\planaction-outputs.html" />
+    <ElementFile Location="src\app\planaction\planoutputs.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

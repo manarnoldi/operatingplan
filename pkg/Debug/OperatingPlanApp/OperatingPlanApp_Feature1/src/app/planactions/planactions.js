@@ -29,27 +29,36 @@
         promises.push(settingsSvc.checkIfCurrentUserIsAdmin());
         promises.push(planCategorySvc.getAllItems());
         promises.push(plansSvc.getAllItems());
-       
-        if (planid) {
-            promises.push(planActionsSvc.getPlansSearched(planid, status));
-        }
-        
+
         $q
             .all(promises)
             .then(function (results) {
                 ctrl.isAdmin = results[0];
                 ctrl.plancategories = results[1];
                 ctrl.plans = results[2];
+
                 if (planid) {
                     ctrl.plan = _.find(ctrl.plans, ['id', planid]);
-                    ctrl.planactions = results[3];
-                    ctrl.categoriesall = ctrl.planactions.length;
-                    ctrl.categoryimpact = LoadCategorySummary(ctrl.planactions, "PC001");
-                    ctrl.categoryinfluence = LoadCategorySummary(ctrl.planactions, "PC002");
-                    ctrl.categorycapacity = LoadCategorySummary(ctrl.planactions, "PC003");
+                } else {
+                    ctrl.plan = _.find(ctrl.plans, ['activeplan', true]);                    
                 }
-                ctrl.statuses = ["Active", "Suspended"];
-                status ? ctrl.status = status : ctrl.status = "";
+
+                planid = ctrl.plan ? ctrl.plan.id : 0;
+
+                planActionsSvc
+                    .getPlansSearched(planid, status)
+                    .then(function (actions) {
+                        ctrl.planactions = actions;
+                        ctrl.categoriesall = ctrl.planactions.length;
+                        ctrl.categoryimpact = LoadCategorySummary(ctrl.planactions, "PC001");
+                        ctrl.categoryinfluence = LoadCategorySummary(ctrl.planactions, "PC002");
+                        ctrl.categorycapacity = LoadCategorySummary(ctrl.planactions, "PC003");
+                        ctrl.statuses = ["Active", "Suspended"];
+                        status ? ctrl.status = status : ctrl.status = "";
+                    })
+                    .catch(function (error) {
+                        growl.error(error);
+                    });
             })
             .catch(function (error) {
                 growl.error(error);

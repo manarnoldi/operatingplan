@@ -22,7 +22,8 @@
         $q
             .all(promises)
             .then(function (data) {
-                ctrl.plans = data[0];
+                ctrl.plans = data[0];      
+                ctrl.plan.activeplan = false;
                 if (ctrl.planId && ctrl.action == 'edit') {
                     ctrl.plan = _.find(ctrl.plans, function (t) {
                         return t.id == ctrl.planId;
@@ -35,6 +36,10 @@
             .finally(function () {
                 spinnerService.closeAll();
             });
+
+        ctrl.changeStatus = function () {
+            ctrl.plan.activeplan = !ctrl.plan.activeplan;
+        };
 
         ctrl.AddRecord = function () {
             if (!ctrl.plan.title) {
