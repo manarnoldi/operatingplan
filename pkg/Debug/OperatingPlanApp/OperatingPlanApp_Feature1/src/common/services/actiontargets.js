@@ -14,10 +14,18 @@
         var actionTargetsList = null;
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
-        svc.getAllItems = function (actionid) {
+        svc.getAllItems = function (actionid, yearid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,YearReview,Editor/Id,Editor/Title,Modified&"+
-            "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
+            var queryParams = "";
+
+            if (yearid) {
+                queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,YearReview,RAGRating,Editor/Id,Editor/Title,Modified&" +
+                    "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid + " and TargetYear/Id eq " + yearid;
+            } else {
+                queryParams = "$select=Id,Title,PlanAction/Id,PlanAction/Title,AnnualTarget,TargetYear/Id,TargetYear/Title,YearReview,RAGRating,Editor/Id,Editor/Title,Modified&" +
+                    "$expand=PlanAction,TargetYear,Editor&$filter=PlanAction/Id eq " + actionid;
+            }
+
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -32,6 +40,7 @@
                         target.updatedate = new Date(o.Modified);
                         target.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
                         target.review = o.YearReview;
+                        target.ragrating = o.RAGRating;
                         actionTargetsList.push(target);
                     });
                     defer.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
@@ -54,11 +63,10 @@
             } else {
 
                 var data = {
-                    Title: target.actionno + "-"+ target.year.title +" Target",
+                    Title: target.actionno + "-" + target.year.title + " Target",
                     PlanActionId: target.actionid,
                     AnnualTarget: target.target,
-                    TargetYearId: target.year.id,
-                    YearReview: target.review
+                    TargetYearId: target.year.id
                 };
 
                 ShptRestService
@@ -89,19 +97,33 @@
                     PlanActionId: target.actionid,
                     AnnualTarget: target.target,
                     TargetYearId: target.year.id,
-                    YearReview: target.review
+                    YearReview: target.review,
+                    RAGRating: target.ragrating
                 };
 
                 ShptRestService
                     .updateListItem(listname, target.id, data)
                     .then(function (response) {
-                        _.forEach(actionTargetsList, function (t) {
-                            if (t.id == target.id) {
-                                t.target = target.target;
-                                t.review = target.review;
-                                t.updatedate = new Date();
-                                t.updateby = { id: svc.userid, title: svc.usertitle };
-                            }
+                        var actdata = {
+                            RAGRating: target.ragrating
+                        };
+
+                        ShptRestService
+                            .updateListItem("PlanActions", target.actionid, actdata)
+                            .then(function (pactions) {
+                                _.forEach(actionTargetsList, function (t) {
+                                    if (t.id == target.id) {
+                                        t.target = target.target;
+                                        t.review = target.review;
+                                        t.ragrating = target.ragrating;
+                                        t.updatedate = new Date();
+                                        t.updateby = { id: svc.userid, title: svc.usertitle };
+                                    }
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                deferEdit.reject("An error occured while updating RAGRating value of the deliverable. Contact IT Service desk for support.");
+                            });                        
                         });
                         deferEdit.resolve(_.orderBy(actionTargetsList, ['year.title'], ['desc']));
                     })
@@ -133,6 +155,6 @@
             }
             return deferDelete.promise;
         };
-        
+
     }
 })();

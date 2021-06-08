@@ -58,7 +58,7 @@
             }
             spinnerService.show('spinner1');
             targetOutputsSvc
-                .getPlanOutputs(ctrl.plan.id, ctrl.year.id)
+                .getPlanOutputs(ctrl.plan.id, ctrl.year.id, ctrl.individual)
                 .then(function (outs) {
                     ctrl.outputs = outs;
                     $dialogAlert('[' + outs.length + '] outputs have been found for target.', 'Successful Transaction');

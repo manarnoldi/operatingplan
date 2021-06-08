@@ -1,0 +1,63 @@
+﻿<div class="col-md-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{review.update ? "Update": "Add"}} Quarter Review</h3>
+        </div>
+        <form method="post" name="frm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="span-border">
+                            <label class="control-label">Target Details:</label>
+                            <span class="form-control-static"> {{review.target.target}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="span-border">
+                            <label class="control-label">Year:</label>
+                            <span class="form-control-static"> {{review.target.year.title}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="span-border">
+                            <label class="control-label">Plan Quarter:</label>
+                            <select ng-model="review.quarter" ng-options="x.title for x in review.quarters track by x.id" class="select form-control" ng-required>
+                                <option value="" class="" selected="selected">-- Choose Review Quarter --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="span-border">
+                            <label class="control-label">RAG Rating:</label>
+                            <label class="radio-inline"><input type="radio" ng-model="review.ragrating" ng-style="{'color': 'Red'}" value="Red">Red</label>
+                            <label class="radio-inline"><input type="radio" ng-model="review.ragrating" ng-style="{'color': '#ffbf00'}" value="Amber">Amber</label>
+                            <label class="radio-inline"><input type="radio" ng-model="review.ragrating" ng-style="{'color': 'Green'}" value="Green">Green</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label">Review Details</label>
+                            <textarea class="form-control" rows="4" ng-model="review.review"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div>
+                        <button class="btn btn-success " name="submit" type="submit" ng-click="submit(frm, review);" ng-disabled="!frm.$valid">
+                            {{review.update ? "Update": "Add"}} and close
+                        </button>
+                        <button class="btn btn-warning " name="submit" type="submit" ng-click="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

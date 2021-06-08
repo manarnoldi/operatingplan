@@ -14,16 +14,25 @@
         var OutputsList = null;
         svc.hostWebUrl = ShptRestService.hostWebUrl;
 
-        svc.getAllItems = function (targetid) {
+        svc.getAllItems = function (targetid, individualid) {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,ActionYearTarget/Id,ActionYearTarget/Title,Output,LeadTeam/Id,LeadTeam/Title,IndividualResponsible/Id," +
-                "IndividualResponsible/Title,OtherTeamsRequired/Id,OtherTeamsRequired/Title,Status,OutputNum,Modified,Editor/Id,Editor/Title&" +
-                "$expand=ActionYearTarget,LeadTeam,IndividualResponsible,OtherTeamsRequired,Editor&$filter=ActionYearTarget/Id eq " + targetid;
+            var queryParams = "";
+            if (individualid) {
+                queryParams = "$select=Id,Title,ActionYearTarget/Id,ActionYearTarget/Title,Output,LeadTeam/Id,LeadTeam/Title,IndividualResponsible/Id," +
+                    "IndividualResponsible/Title,OtherTeamsRequired/Id,OtherTeamsRequired/Title,Status,OutputNum,Modified,Editor/Id,Editor/Title&" +
+                    "$expand=ActionYearTarget,LeadTeam,IndividualResponsible,OtherTeamsRequired,Editor&$filter=ActionYearTarget/Id eq " + targetid +
+                    " and IndividualResponsible/Id eq " + individualid;
+            } else {
+                queryParams = "$select=Id,Title,ActionYearTarget/Id,ActionYearTarget/Title,Output,LeadTeam/Id,LeadTeam/Title,IndividualResponsible/Id," +
+                    "IndividualResponsible/Title,OtherTeamsRequired/Id,OtherTeamsRequired/Title,Status,OutputNum,Modified,Editor/Id,Editor/Title&" +
+                    "$expand=ActionYearTarget,LeadTeam,IndividualResponsible,OtherTeamsRequired,Editor&$filter=ActionYearTarget/Id eq " + targetid;
+            }
+
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
                     OutputsList = [];
-                    var progressProms = [];
+                    //var progressProms = [];
                     _.forEach(data.results, function (o) {
                         var output = {};
                         output.id = o.Id;
@@ -40,23 +49,24 @@
                         output.num = o.OutputNum;
                         output.updatedate = new Date(o.Modified);
                         output.updateby = _.isNil(o.Editor) ? '' : { id: o.Editor.Id, title: o.Editor.Title };
-                        progressProms.push(outputProgressSvc.getMaximumProgress(o.Id))
+                        //progressProms.push(outputProgressSvc.getMaximumProgress(o.Id))
                         output.progress = 0;
                         OutputsList.push(output);
                     });
 
-                    $q
-                        .all(progressProms)
-                        .then(function (progRes) {
-                            for (var i = 0; i < progRes.length; i++) {
-                                OutputsList[i].progress = progRes[i];
-                            }
-                            defer.resolve(_.orderBy(OutputsList, ['num'], ['asc']));
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                            defer.reject(error);
-                        });
+                    defer.resolve(_.orderBy(OutputsList, ['num'], ['asc']));
+                    //$q
+                    //    .all(progressProms)
+                    //    .then(function (progRes) {
+                    //        for (var i = 0; i < progRes.length; i++) {
+                    //            OutputsList[i].progress = progRes[i];
+                    //        }
+                    //        defer.resolve(_.orderBy(OutputsList, ['num'], ['asc']));
+                    //    })
+                    //    .catch(function (error) {
+                    //        console.log(error);
+                    //        defer.reject(error);
+                    //    });
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -214,7 +224,7 @@
             return deferRemInd.promise;
         };
 
-        svc.getPlanOutputs = (planId, yearId) => {
+        svc.getPlanOutputs = (planId, yearId, individual) => {
             var deferplanOuts = $q.defer();
             var targetproms = [];
             var outproms = [];
@@ -222,29 +232,54 @@
             planActionsSvc
                 .getAllItems(planId)
                 .then(function (actions) {
+                    if (individual) {
+                        if (individual.length>0) {
+                            targetproms.push(ShptRestService.ensureUser(individual[0].Login));
+                        }                       
+                    }
                     _.forEach(actions, (action) => {
-                        targetproms.push(actionTargetsSvc.getAllItems(action.id));
+                        targetproms.push(actionTargetsSvc.getAllItems(action.id, yearId));
                     });
 
                     $q
                         .all(targetproms)
                         .then(function (targets) {
+                            var individualId;
+                            if (individual) {
+                                if (individual.length > 0) {
+                                    individualId = targets[0].Id;
+                                    targets.shift();
+                                }
+                            }
                             targets = _.filter(targets, function (tr) {
                                 return tr.length > 0;
                             });
 
                             _.forEach(targets, (target) => {
-                                _.forEach(target, function (t) {
-                                    if (t.year.id == yearId) {
-                                        outproms.push(svc.getAllItems(t.id));
-                                    }
-                                });
+                                var targetId = target[0].id;
+                                outproms.push(svc.getAllItems(targetId, individualId));
                             });
 
                             $q
                                 .all(outproms)
                                 .then(function (outputs) {
-                                    deferplanOuts.resolve(outputs);
+                                    var returnOut = outputs.flat(2);
+                                    var progressProms = [];
+                                    _.forEach(returnOut, (out) => {
+                                        progressProms.push(outputProgressSvc.getMaximumProgress(out.id))
+                                    })
+                                    $q
+                                        .all(progressProms)
+                                        .then(function (progRes) {
+                                            for (var i = 0; i < progRes.length; i++) {
+                                                returnOut[i].progress = progRes[i];
+                                            }
+                                            deferplanOuts.resolve(_.orderBy(returnOut, ['title'], ['asc']));
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                            deferplanOuts.reject(error);
+                                        });                                   
                                 })
                                 .catch(function (error) {
                                     console.log(error);

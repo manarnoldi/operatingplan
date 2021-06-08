@@ -58,13 +58,13 @@
                     })
                     .catch(function (error) {
                         growl.error(error);
+                    })
+                    .finally(function () {
+                        spinnerService.closeAll();
                     });
             })
             .catch(function (error) {
                 growl.error(error);
-            })
-            .finally(function () {
-                spinnerService.closeAll();
             });
 
         function LoadCategorySummary(planactions, categorycode) {

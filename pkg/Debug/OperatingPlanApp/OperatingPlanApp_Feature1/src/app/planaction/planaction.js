@@ -5,8 +5,10 @@
         .module('planaction', [])
         .controller('planactionCtrl', PlanActionCtrlFunction);
 
-    PlanActionCtrlFunction.$inject = ['$q', '$route', '$routeParams', '$dialog', '$dialogAlert', '$dialogConfirm', 'actionTargetsSvc', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc', 'quartersSvc', 'plansSvc','planActionsSvc', 'teamsSvc', 'accountableSvc', 'spinnerService', 'growl'];
-    function PlanActionCtrlFunction($q, $route, $routeParams, $dialog, $dialogAlert, $dialogConfirm, actionTargetsSvc, targetOutputsSvc, outputProgressSvc, yearsSvc, quartersSvc, plansSvc, planActionsSvc, teamsSvc, accountableSvc, spinnerService, growl) {
+    PlanActionCtrlFunction.$inject = ['$q', '$route', '$routeParams', '$dialog', '$dialogAlert', '$dialogConfirm', 'actionTargetsSvc', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc',
+        'quartersSvc', 'qReviewsSvc', 'plansSvc', 'planActionsSvc', 'teamsSvc', 'accountableSvc', 'spinnerService', 'growl'];
+    function PlanActionCtrlFunction($q, $route, $routeParams, $dialog, $dialogAlert, $dialogConfirm, actionTargetsSvc, targetOutputsSvc, outputProgressSvc, yearsSvc,
+        quartersSvc, qReviewsSvc, plansSvc, planActionsSvc, teamsSvc, accountableSvc, spinnerService, growl) {
         var ctrl = this;
         spinnerService.show('spinner1');
         ctrl.actionid = parseInt($routeParams.id);
@@ -22,6 +24,7 @@
         ctrl.allOutputs = false;
         ctrl.outputs = [];
         ctrl.progress = [];
+        ctrl.quarterreviews = [];
         var promises = [];
         promises.push(planActionsSvc.getItemById(ctrl.actionid));
         promises.push(actionTargetsSvc.getAllItems(ctrl.actionid));
@@ -51,12 +54,57 @@
                     showUncheckAll: false,
                     showCheckAll: false
                 };
+
+                var activeyear = _.find(ctrl.years, ['active', true]);
+                if (activeyear) {
+                    ctrl.currenttarget = _.find(ctrl.actiontargets, function (t) {
+                        return t.year.id == activeyear.id;
+                    });
+                }
+
+                if (ctrl.currenttarget) {
+                    var outproms = [];
+                    outproms.push(targetOutputsSvc.getAllItems(ctrl.currenttarget.id));
+                    outproms.push(qReviewsSvc.getAllItems(ctrl.currenttarget.id));
+
+                    $q
+                        .all(outproms)
+                        .then(function (res) {
+                            var progressProms = [];
+                            var resoutputs = res[0];
+                            _.forEach(resoutputs, (out) => {
+                                progressProms.push(outputProgressSvc.getMaximumProgress(out.id))
+                            })
+                            $q
+                                .all(progressProms)
+                                .then(function (progRes) {
+                                    for (var i = 0; i < progRes.length; i++) {
+                                        resoutputs[i].progress = progRes[i];
+                                    }
+                                    ctrl.outputs = resoutputs;
+                                    ctrl.quarterreviews = res[1];
+                                    //$dialogAlert('[' + res.length + '] outputs have been found for target.', 'Successful Transaction');
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                    deferplanOuts.reject(error);
+                                })
+                                .finally(function () {
+                                    spinnerService.closeAll();
+                                });
+                        })
+                        .catch(function (error) {
+                            $dialogAlert(error, 'Unsuccessful Transaction');
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                } else {
+                    spinnerService.closeAll();
+                }
             })
             .catch(function (error) {
                 growl.error(error);
-            })
-            .finally(function () {
-                spinnerService.closeAll();
             });
 
         ctrl.searchExpectedOutputs = () => {
@@ -117,6 +165,7 @@
                         .AddItem(target)
                         .then(function (res) {
                             ctrl.actiontargets = res;
+                            ctrl.action.ragrating = target.ragrating;
                             $dialogAlert('Action year target added successfully!', 'Successful Transaction');
                         })
                         .catch(function (error) {
@@ -134,6 +183,7 @@
             passdata.year = target.year;
             passdata.target = target.target;
             passdata.review = target.review;
+            passdata.ragrating = target.ragrating;
             passdata.id = target.id;
             passdata.update = true;
             var targetsDW = { scopeVariableName: 'passdata', dataObject: passdata };
@@ -146,6 +196,7 @@
                         .UpdateItem(target)
                         .then(function (res) {
                             ctrl.actiontargets = res;
+                            ctrl.action.ragrating = target.ragrating;
                             $dialogAlert('Action year target updated successfully!', 'Successful Transaction');
                         })
                         .catch(function (error) {
@@ -176,25 +227,127 @@
                 });
         };
 
+        ctrl.addQuarterReview = function () {
+            if (ctrl.currenttarget == "") {
+                $dialogAlert("Kindly select the target year details.", "Missing Details");
+                return;
+            }
+
+            var review = {};
+            review.update = false;
+            review.target = ctrl.currenttarget;
+            review.quarters = ctrl.quarters;
+
+            var reviewDW = { scopeVariableName: 'review', dataObject: review };
+            $dialog('app/planaction/planaction-qreview.html', 'lg', reviewDW)
+                .then(function (review) {
+                    spinnerService.show('spinner1');
+                    qReviewsSvc
+                        .AddItem(review)
+                        .then(function (res) {
+                            ctrl.quarterreviews = res;
+                            $dialogAlert('Action target quarter review added successfully!', 'Successful Transaction');
+                        })
+                        .catch(function (error) {
+                            $dialogAlert(error, 'Unable to add alert record');
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
+
+        ctrl.updateQuarterReview = function (rev) {
+            var review = {};
+            review.update = true;
+            review.target = ctrl.currenttarget;
+            review.quarters = ctrl.quarters;
+            review.quarter = rev.quarter;
+            review.ragrating = rev.ragrating;
+            review.review = rev.review;
+            review.id = rev.id;
+
+            var reviewDW = { scopeVariableName: 'review', dataObject: review };
+            $dialog('app/planaction/planaction-qreview.html', 'lg', reviewDW)
+                .then(function (review) {
+                    spinnerService.show('spinner1');
+                    qReviewsSvc
+                        .UpdateItem(review)
+                        .then(function (res) {
+                            ctrl.quarterreviews = res;
+                            $dialogAlert('Action target quarter review updated successfully!', 'Successful Transaction');
+                        })
+                        .catch(function (error) {
+                            $dialogAlert(error, 'Unsuccessful Transaction');
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
+
+        ctrl.deleteQuarterReview = function (review) {
+            $dialogConfirm('Delete target quarter review?', 'Confirm Transaction')
+                .then(function () {
+                    spinnerService.show('spinner1');
+                    qReviewsSvc
+                        .DeleteItem(review.id)
+                        .then(function (res) {
+                            ctrl.quarterreviews = res;
+                            $dialogAlert('Action target quarter review deleted successfully!', 'Successful Transaction');
+                        })
+                        .catch(function (error) {
+                            $dialogAlert(error, 'Unsuccessful Transaction');
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
+                });
+        };
+
         ctrl.showOutputs = function (target) {
+            ctrl.quarterreviews = [];
+            ctrl.outputs = [];
+            ctrl.progress = [];
             ctrl.currenttarget = "";
             ctrl.currentoutput = "";
             ctrl.currenttarget = target;
             spinnerService.show('spinner1');
-            targetOutputsSvc
-                .getAllItems(target.id)
+
+            var outproms = [];
+            outproms.push(targetOutputsSvc.getAllItems(target.id));
+            outproms.push(qReviewsSvc.getAllItems(target.id));
+
+            $q
+                .all(outproms)
                 .then(function (res) {
-                    ctrl.outputs = [];
-                    ctrl.progress = [];
-                    ctrl.outputs = res;
-                    $dialogAlert('[' + res.length + '] outputs have been found for target.', 'Successful Transaction');
+                    var progressProms = [];
+                    var resoutputs = res[0];
+                    _.forEach(resoutputs, (out) => {
+                        progressProms.push(outputProgressSvc.getMaximumProgress(out.id))
+                    })
+                    $q
+                        .all(progressProms)
+                        .then(function (progRes) {
+                            for (var i = 0; i < progRes.length; i++) {
+                                resoutputs[i].progress = progRes[i];
+                            }
+                            ctrl.outputs = resoutputs;
+                            ctrl.quarterreviews = res[1];
+                            //$dialogAlert('[' + res.length + '] outputs have been found for target.', 'Successful Transaction');
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            deferplanOuts.reject(error);
+                        })
+                        .finally(function () {
+                            spinnerService.closeAll();
+                        });
                 })
                 .catch(function (error) {
                     $dialogAlert(error, 'Unsuccessful Transaction');
-                })
-                .finally(function () {
-                    spinnerService.closeAll();
                 });
+
         };
 
         ctrl.addOutput = function () {

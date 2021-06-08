@@ -52,8 +52,10 @@
     <script type="text/javascript" src="common/services/planactions.js"></script>
     <script type="text/javascript" src="common/services/actiontargets.js"></script>
     <script type="text/javascript" src="common/services/targetoutputs.js"></script>
+    <script type="text/javascript" src="common/services/quarter-review.js"></script>
     <script type="text/javascript" src="common/services/outputprogress.js"></script>
     <script type="text/javascript" src="common/services/settings.js"></script>
+    <script type="text/javascript" src="common/services/reports.js"></script>
 
     <!--Directives-->
     <script type="text/javascript" src="common/directives/ng-file-model.js"></script>

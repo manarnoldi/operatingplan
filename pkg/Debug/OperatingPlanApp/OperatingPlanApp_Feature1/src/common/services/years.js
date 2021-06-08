@@ -15,7 +15,7 @@
 
         svc.getAllItems = function () {
             var defer = $q.defer();
-            var queryParams = "$select=Id,Title,StartDate,EndDate";
+            var queryParams = "$select=Id,Title,StartDate,EndDate,ActiveYear";
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -26,6 +26,7 @@
                         year.title = o.Title;
                         year.startdate = new Date(o.StartDate);
                         year.enddate = new Date(o.EndDate);
+                        year.active = o.ActiveYear;
                         yearsList.push(year);
                     });
                     defer.resolve(_.orderBy(yearsList, ['title'], ['desc']));
@@ -49,6 +50,7 @@
                     Title: year.title,
                     StartDate: year.startdate,
                     EndDate: year.enddate,
+                    ActiveYear: year.active
                 };
 
                 ShptRestService
@@ -77,6 +79,7 @@
                     Title: year.title,
                     StartDate: year.startdate,
                     EndDate: year.enddate,
+                    ActiveYear: year.active
                 };
 
                 ShptRestService

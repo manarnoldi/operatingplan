@@ -20,11 +20,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Start Date</label>
-                                    <input type="date" class="form-control" ng-model="ctrl.year.startdate"/>
+                                    <input type="date" class="form-control" ng-model="ctrl.year.startdate" />
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">End Date</label>
-                                    <input type="date" class="form-control" ng-model="ctrl.year.enddate"/>
+                                    <input type="date" class="form-control" ng-model="ctrl.year.enddate" />
+                                </div>
+                                <div class="form-group settings">
+                                    <label class="control-label">Active Year?</label>
+                                    <div class="form-control">
+                                        <i class="fa fa-toggle-on active" ng-if="ctrl.year.active" ng-click="ctrl.changeStatus()"></i>
+                                        <i class="fa fa-toggle-on fa-rotate-180 inactive" ng-if="!ctrl.year.active" ng-click="ctrl.changeStatus();"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>

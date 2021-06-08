@@ -114,7 +114,6 @@
                 ShptRestService
                     .updateListItem(listname, progress.id, data)
                     .then(function (response) {
-
                         svc.
                             getAllItems(parseInt(progress.output.id))
                             .then(function (outs) {

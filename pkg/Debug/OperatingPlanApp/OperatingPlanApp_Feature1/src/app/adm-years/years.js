@@ -36,6 +36,11 @@
                 spinnerService.closeAll();
             });
 
+        ctrl.changeStatus = function () {
+            ctrl.year.active = !ctrl.year.active;
+        };
+
+
         ctrl.AddRecord = function () {
             if (!ctrl.year.title) {
                 $dialogAlert("Kindly provide the year title.", "Missing Details");

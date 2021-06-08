@@ -25,6 +25,16 @@
                 </div>
                 <div class="row" ng-if="passdata.update">
                     <div class="col-md-12">
+                        <div class="span-border">
+                            <label class="control-label">RAG Rating:</label>
+                            <label class="radio-inline"><input type="radio" ng-model="passdata.ragrating" ng-style="{'color': 'Red'}" value="Red">Red</label>
+                            <label class="radio-inline"><input type="radio" ng-model="passdata.ragrating" ng-style="{'color': '#ffbf00'}" value="Amber">Amber</label>
+                            <label class="radio-inline"><input type="radio" ng-model="passdata.ragrating" ng-style="{'color': 'Green'}" value="Green">Green</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" ng-if="passdata.update">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label requiredField">Annual Target Review:<span class="asteriskField">*</span></label>
                             <textarea class="form-control" rows="8" ng-model="passdata.review" required></textarea>

@@ -91,6 +91,9 @@
     <ElementFile Location="src\app\adm-actions\actions-add.tpl.html" />
     <ElementFile Location="src\app\planaction\planaction-outputs.html" />
     <ElementFile Location="src\app\planaction\planoutputs.js" />
+    <ElementFile Location="src\common\services\quarter-review.js" />
+    <ElementFile Location="src\app\planaction\planaction-qreview.html" />
+    <ElementFile Location="src\common\services\reports.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

@@ -52,9 +52,12 @@
                         <div class="span-border">
                             <label class="control-label">RAG Rating:</label>
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Red') ? 'Red':'default'}" ng-click="ctrl.updateRagRating(ctrl.action.id, 'Red')">Red</button>
+                                <!--<button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Red') ? 'Red':'default'}" ng-click="ctrl.updateRagRating(ctrl.action.id, 'Red')">Red</button>
                                 <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Amber') ? '#ffbf00':'default'}" ng-click="ctrl.updateRagRating(ctrl.action.id, 'Amber')">Amber</button>
-                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Green') ? 'Green':'default'}" ng-click="ctrl.updateRagRating(ctrl.action.id, 'Green')">Green</button>
+                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Green') ? 'Green':'default'}" ng-click="ctrl.updateRagRating(ctrl.action.id, 'Green')">Green</button>-->
+                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Red') ? 'Red':'default'}">Red</button>
+                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Amber') ? '#ffbf00':'default'}">Amber</button>
+                                <button type="button" class="btn btn-sm btn-default" ng-style="{'background-color': (ctrl.action.ragrating == 'Green') ? 'Green':'default'}">Green</button>
                             </div>
                         </div>
                     </div>
@@ -85,6 +88,7 @@
                                         <th style="min-width:100px;">Year</th>
                                         <th style="min-width:250px;">Target Details</th>
                                         <th style="min-width:250px;">Target Review</th>
+                                        <th style="min-width:100px;">RAG Rating</th>
                                         <th style="min-width:150px;">Modified By</th>
                                         <th style="min-width:150px;">Modified Date</th>
                                         <th style="min-width:80px;" ng-if="ctrl.accountable">Action</th>
@@ -92,10 +96,12 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr ng-repeat="target in ctrl.actiontargets">
+                                    <tr ng-repeat="target in ctrl.actiontargets"
+                                         ng-style="{'background-color': (target.ragrating == 'Green') ? '#00FF0035' : (target.ragrating == 'Red') ? '#FF000035' : (target.ragrating == 'Amber') ? '#FFBF0035' : 'default'}">
                                         <td><span><a ng-click="ctrl.showOutputs(target)">{{target.year.title}}</a></span></td>
                                         <td><span>{{target.target}}</span></td>
                                         <td><span>{{target.review}}</span></td>
+                                        <td><span>{{target.ragrating}}</span></td>
                                         <td><span>{{target.updateby.title}}</span></td>
                                         <td><span>{{target.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
                                         <td ng-if="ctrl.accountable">
@@ -104,6 +110,79 @@
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                 </a> |
                                                 <a ng-click="ctrl.deleteYearTarget(target)" class="btn btn-danger btn-xs" title="Delete Target">
+                                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading pnl-heading">QUARTERLY REVIEWS</div>
+        <div class="panel-body">
+            <div class="well" ng-if="ctrl.currenttarget != ''">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="span-border">
+                            <label class="control-label">Target Details:</label>
+                            <span class="form-control-static"> {{ctrl.currenttarget.target}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="span-border">
+                            <label class="control-label">Year:</label>
+                            <span class="form-control-static"> {{ctrl.currenttarget.year.title}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="well">
+                <div class="row" ng-if="ctrl.accountable">
+                    <div class="col-md-12">
+                        <div class="pull-right admin-add-btn">
+                            <a ng-click="ctrl.addQuarterReview()" class="btn btn-sm btn-success">
+                                <i class="fa fa-plus-circle"></i>
+                                Add Quarterly Review
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contract-table">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="min-width:150px;">Quarter</th>
+                                        <th style="min-width:250px;">Review</th>
+                                        <th style="min-width:150px;">RAG Rating</th>
+                                        <th style="min-width:150px;">Modified By</th>
+                                        <th style="min-width:150px;">Modified Date</th>
+                                        <th style="min-width:80px;" ng-if="ctrl.accountable">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="review in ctrl.quarterreviews"
+                                        ng-style="{'background-color': (review.ragrating == 'Green') ? '#00FF0035' : (review.ragrating == 'Red') ? '#FF000035' : (review.ragrating == 'Amber') ? '#FFBF0035' : 'default'}">
+                                        <td><span>{{review.quarter.title}}</span></td>
+                                        <td><span>{{review.review}}</span></td>
+                                        <td><span>{{review.ragrating}}</span></td>
+                                        <td><span>{{review.updateby.title}}</span></td>
+                                        <td><span>{{review.updatedate | date: 'dd/MM/yyyy HH:mm:ss' : 'europe/london'}}</span></td>
+                                        <td ng-if="ctrl.accountable">
+                                            <div>
+                                                <a ng-click="ctrl.updateQuarterReview(review)" class="btn btn-warning btn-xs" title="Update Quarter Review">
+                                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                                </a> |
+                                                <a ng-click="ctrl.deleteQuarterReview(review)" class="btn btn-danger btn-xs" title="Delete Quarter Review">
                                                     <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                                                 </a>
                                             </div>
