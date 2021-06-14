@@ -5,9 +5,10 @@
         .module('planoutputs', [])
         .controller('planoutputsCtrl', PlanOutputsCtrlFunction);
 
-    PlanOutputsCtrlFunction.$inject = ['$q', '$dialog', '$dialogAlert', '$dialogConfirm', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc', 'quartersSvc', 'plansSvc', 'teamsSvc', 'spinnerService', 'growl'];
-    function PlanOutputsCtrlFunction($q, $dialog, $dialogAlert, $dialogConfirm, targetOutputsSvc, outputProgressSvc, yearsSvc, quartersSvc, plansSvc, teamsSvc, spinnerService, growl) {
+    PlanOutputsCtrlFunction.$inject = ['$q', '$dialog', '$dialogAlert', '$dialogConfirm', 'targetOutputsSvc', 'outputProgressSvc', 'yearsSvc', 'quartersSvc', 'plansSvc', 'teamsSvc','settingsSvc', 'spinnerService', 'growl'];
+    function PlanOutputsCtrlFunction($q, $dialog, $dialogAlert, $dialogConfirm, targetOutputsSvc, outputProgressSvc, yearsSvc, quartersSvc, plansSvc, teamsSvc, settingsSvc, spinnerService, growl) {
         var ctrl = this;
+        ctrl.isAdmin = false;
         spinnerService.show('spinner1');
         ctrl.currentUserId = _spPageContextInfo.userId;
         ctrl.tableOptions = {
@@ -23,6 +24,7 @@
         promises.push(quartersSvc.getAllItems());
         promises.push(plansSvc.getAllItems());
         promises.push(yearsSvc.getAllItems());
+        promises.push(settingsSvc.checkIfCurrentUserIsAdmin());
 
         $q
             .all(promises)
@@ -33,7 +35,7 @@
                 ctrl.currentoutput = "";
                 ctrl.plans = results[2];
                 ctrl.years = results[3];
-
+                ctrl.isAdmin = results[4];
                 ctrl.config = {
                     checkBoxes: true,
                     dynamicTitle: false,

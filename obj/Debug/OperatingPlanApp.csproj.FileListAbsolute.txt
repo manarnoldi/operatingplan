@@ -9,7 +9,7 @@ C:\Users\adm.as\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.csproj.
 C:\Users\adm.as\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.dll
 C:\Users\adm.as\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.pdb
 C:\Users\HP\source\repos\OperatingPlanApp\bin\Debug\OperatingPlanApp.pdb
-C:\Users\HP\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.csprojAssemblyReference.cache
 C:\Users\HP\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.csproj.CoreCompileInputs.cache
 C:\Users\HP\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.dll
 C:\Users\HP\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.pdb
+C:\Users\HP\source\repos\OperatingPlanApp\obj\Debug\OperatingPlanApp.csprojAssemblyReference.cache

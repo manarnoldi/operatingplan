@@ -79,5 +79,9 @@
     <File Path="src\common\services\quarter-review.js" Url="src/common/services/quarter-review.js" ReplaceContent="TRUE" />
     <File Path="src\app\planaction\planaction-qreview.html" Url="src/app/planaction/planaction-qreview.html" ReplaceContent="TRUE" />
     <File Path="src\common\services\reports.js" Url="src/common/services/reports.js" ReplaceContent="TRUE" />
+    <File Path="src\app\reports\reports.js" Url="src/app/reports/reports.js" ReplaceContent="TRUE" />
+    <File Path="src\app\reports\reports.tpl.html" Url="src/app/reports/reports.tpl.html" ReplaceContent="TRUE" />
+    <File Path="src\common\pdfmake.min.js" Url="src/common/pdfmake.min.js" ReplaceContent="TRUE" />
+    <File Path="src\common\vfs_fonts.js" Url="src/common/vfs_fonts.js" ReplaceContent="TRUE" />
   </Module>
 </Elements>

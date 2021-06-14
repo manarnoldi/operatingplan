@@ -81,6 +81,8 @@
     <ProjectItemFile Source="src\app\planaction\planaction-qreview.html" Target="src\app\planaction\" Type="ElementFile" />
     <ProjectItemFile Source="src\common\services\reports.js" Target="src\common\services\" Type="ElementFile" />
     <ProjectItemFile Source="src\app\reports\reports.js" Target="src\app\reports\" Type="ElementFile" />
-    <ProjectItemFile Source="src\app\reports\reports.html" Target="src\app\reports\" Type="ElementFile" />
+    <ProjectItemFile Source="src\app\reports\reports.tpl.html" Target="src\app\reports\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\pdfmake.min.js" Target="src\common\" Type="ElementFile" />
+    <ProjectItemFile Source="src\common\vfs_fonts.js" Target="src\common\" Type="ElementFile" />
   </Files>
 </ProjectItem>

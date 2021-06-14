@@ -6,7 +6,7 @@
             'angular-growl', 'sp-peoplepicker', 'datatables', 'angularjs-dropdown-multiselect', 'services.settings', 'services.plancategories', 'services.plans', 'services.planactions',
             'services.actiontargets', 'services.years', 'services.quarters', 'services.accountable', 'services.targetoutputs', 'services.outputprogress', 'services.teams', 'dir.adminmenu',
             'dir.backbtn', 'services.reports', 'services.qreviews', 'dir.addbtn', 'dir.adddocument', 'planactions', 'years', 'quarters', 'accountable', 'teams', 'categories', 'plans',
-            'actions', 'planoutputs', 'settings', 'planaction'])
+            'actions', 'planoutputs', 'settings', 'planaction', 'reports'])
         .constant("IS_APP_WEB", false)
         .config(['growlProvider', GrowlProvider])
         .config(['$routeProvider', RouteProvider]);
@@ -128,6 +128,12 @@
             .when('/listAdminSettings', {
                 templateUrl: 'app/adm-settings/settings-list.tpl.html',
                 controller: 'settingsCtrl as ctrl',
+                param: 'list'
+            })
+            /*Load Reports*/
+            .when('/loadReports', {
+                templateUrl: 'app/reports/reports.tpl.html',
+                controller: 'reportsCtrl as ctrl',
                 param: 'list'
             })
             .otherwise({

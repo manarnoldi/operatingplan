@@ -1,0 +1,111 @@
+﻿<div class="row">
+    <div class="col-md-6 page-font">
+        <i class="fa fa-list"></i> Operating Plan Reports
+    </div>
+    <div class="col-md-6">
+        <div class="pull-right">
+            <a href="#dashboard" class="btn btn-sm btn-warning">
+                <i class="fa fa-angle-double-left"></i> Back to Dashboard
+            </a>
+            <a href="#searchOutputs" class="btn btn-sm btn-warning">
+                <i class="fa fa-search"></i> Search Expected Outputs
+            </a>
+            <a href="#listAdminYears" class="btn btn-sm btn-danger" ng-if="ctrl.isAdmin">
+                <i class="fa fa-cog"></i> Administration
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-2">
+            <label class="control-label">Report Type:</label>
+            <select ng-model="ctrl.reporttype" ng-options="x.title for x in ctrl.reporttypes track by x.id" class="select form-control" ng-change="ctrl.clearLoadedReport()">
+                <option value="" class="" selected="selected">--Select Type--</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label">Plan Name:</label>
+            <select ng-model="ctrl.plan" ng-options="x.title for x in ctrl.plans track by x.id" class="select form-control" ng-change="ctrl.clearLoadedReport()">
+                <option value="" class="" selected="selected">--Select Plan--</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label">Target Year:</label>
+            <select ng-model="ctrl.year" ng-options="x.title for x in ctrl.years track by x.id" class="select form-control" ng-change="ctrl.clearLoadedReport()">
+                <option value="" class="" selected="selected">--Select Year--</option>
+            </select>
+        </div>
+        <div class="col-md-2" ng-if="ctrl.reporttype.id == 2">
+            <label class="control-label">Target Quarter:</label>
+            <select ng-model="ctrl.quarter" ng-options="x.title for x in ctrl.quarters track by x.id" class="select form-control" ng-change="ctrl.clearLoadedReport()">
+                <option value="" class="" selected="selected">--Select Quarter--</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label">Action</label>
+            <button class="btn btn-sm btn-info form-control" ng-click="ctrl.loadReport()" type="button">
+                <i class="fa fa-spinner"></i> Load Report
+            </button>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label">Action:</label>
+            <button class="btn btn-sm btn-success form-control" ng-click="ctrl.printLoadedReport()" type="button">
+                <i class="fa fa-print"></i> Print Report
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading pnl-heading">REPORT DETAILS</div>
+    <div class="panel-body">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contract-table" style="overflow:scroll">
+                        <table datatable="ng" dt-options="ctrl.tableOptions" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="min-width:80px;">No</th>
+                                    <th style="min-width:180px;">Deliverable</th>
+                                    <th style="min-width:120px;">Category</th>
+                                    <th style="min-width:120px;">Accountable</th>
+                                    <th style="min-width:120px;">Indicators</th>
+                                    <th ng-if="ctrl.reporttype.id == 1" style="min-width:140px;">AnnualTarget</th>
+                                    <th style="min-width:80px;">RagRating</th>
+                                    <th style="min-width:140px;">ReviewSummary</th>
+                                </tr>
+                            </thead>
+                            <tbody><tr ng-repeat="rpt in ctrl.printReport">
+                                    <td><span>{{rpt.actionno}}</span></td>
+                                    <td><span>{{rpt.actionname}}</span></td>
+                                    <td><span>{{rpt.category.abbr}}</span></td>
+                                    <td><span>{{rpt.accountable.title}}</span></td>
+                                    <td><span>{{rpt.indicators}}</span></td>
+                                    <td ng-if="ctrl.reporttype.id == 1"><span>{{rpt.target}}</span></td>
+                                    <td ng-style="{'background-color': (rpt.ragrating == 'Green') ? '#00FF0080' : (rpt.ragrating == 'Red') ? '#FF000080' : (rpt.ragrating == 'Amber') ? '#FFBF0080' : 'default'}"><span>{{rpt.ragrating}}</span></td>
+                                    <td><span>{{rpt.review}}</span></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th style="min-width:80px;">No</th>
+                                    <th style="min-width:180px;">Deliverable</th>
+                                    <th style="min-width:120px;">Category</th>
+                                    <th style="min-width:120px;">Accountable</th>
+                                    <th style="min-width:120px;">Indicators</th>
+                                    <th ng-if="ctrl.reporttype.id == 1" style="min-width:140px;">AnnualTarget</th>
+                                    <th style="min-width:80px;">RagRating</th>
+                                    <th style="min-width:140px;">ReviewSummary</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

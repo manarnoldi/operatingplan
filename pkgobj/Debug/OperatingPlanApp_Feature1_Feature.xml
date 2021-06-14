@@ -94,6 +94,10 @@
     <ElementFile Location="src\common\services\quarter-review.js" />
     <ElementFile Location="src\app\planaction\planaction-qreview.html" />
     <ElementFile Location="src\common\services\reports.js" />
+    <ElementFile Location="src\app\reports\reports.js" />
+    <ElementFile Location="src\app\reports\reports.tpl.html" />
+    <ElementFile Location="src\common\pdfmake.min.js" />
+    <ElementFile Location="src\common\vfs_fonts.js" />
   </ElementManifests>
   <UpgradeActions>
     <VersionRange>

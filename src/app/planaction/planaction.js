@@ -31,7 +31,8 @@
         promises.push(yearsSvc.getAllItems());
         promises.push(teamsSvc.getAllItems());
         promises.push(quartersSvc.getAllItems());
-        promises.push(accountableSvc.checkIfAccountable(ctrl.currentUserId, ctrl.actionid));
+        //promises.push(accountableSvc.checkIfAccountable(ctrl.currentUserId, ctrl.actionid));
+        promises.push(accountableSvc.getAllItems());
         promises.push(plansSvc.getAllItems());
 
         $q
@@ -45,7 +46,7 @@
                 ctrl.statuses = ["Active", "Completed"];
                 ctrl.currenttarget = "";
                 ctrl.currentoutput = "";
-                ctrl.accountable = results[5];
+                ctrl.accountables = results[5];
                 ctrl.plans = results[6];
 
                 ctrl.config = {
@@ -54,6 +55,11 @@
                     showUncheckAll: false,
                     showCheckAll: false
                 };
+
+                var accountableItem = _.find(ctrl.accountables, ['id', ctrl.action.accountable.id]);
+                ctrl.accountable = _.some(accountableItem.accountable, function (a) {
+                    return a.Id == ctrl.currentUserId;
+                });
 
                 var activeyear = _.find(ctrl.years, ['active', true]);
                 if (activeyear) {
@@ -237,6 +243,8 @@
             review.update = false;
             review.target = ctrl.currenttarget;
             review.quarters = ctrl.quarters;
+            review.action = ctrl.currenttarget.action;
+            review.year = ctrl.currenttarget.year;
 
             var reviewDW = { scopeVariableName: 'review', dataObject: review };
             $dialog('app/planaction/planaction-qreview.html', 'lg', reviewDW)
@@ -266,6 +274,8 @@
             review.ragrating = rev.ragrating;
             review.review = rev.review;
             review.id = rev.id;
+            review.action = ctrl.currenttarget.action;
+            review.year = ctrl.currenttarget.year;
 
             var reviewDW = { scopeVariableName: 'review', dataObject: review };
             $dialog('app/planaction/planaction-qreview.html', 'lg', reviewDW)

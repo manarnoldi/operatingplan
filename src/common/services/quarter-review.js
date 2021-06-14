@@ -16,8 +16,9 @@
 
         svc.getAllItems = function (actiontargetid) {
             var deferQR = $q.defer();
-            var queryParams = "$select=Id,Title,PlanQuarter/Id,PlanQuarter/Title,PlanQuarter/Abbr,PlanActionYearTarget/Id,PlanActionYearTarget/Title,Review,RAGRating,Modified,Editor/Id,Editor/Title&" +
-                "$expand=PlanQuarter,PlanActionYearTarget,Editor&$filter=PlanActionYearTarget/Id eq " + actiontargetid;
+            var queryParams = "$select=Id,Title,PlanQuarter/Id,PlanQuarter/Title,PlanQuarter/Abbr,PlanActionYearTarget/Id,PlanActionYearTarget/Title," +
+                "Review,RAGRating,Modified,Editor/Id,Editor/Title,PlanAction/Id,PlanAction/Title,TargetYear/Id,TargetYear/Title&$expand=PlanQuarter," +
+                "PlanActionYearTarget,Editor,PlanAction,TargetYear&$filter=PlanActionYearTarget/Id eq " + actiontargetid;
             ShptRestService
                 .getListItems(listname, queryParams)
                 .then(function (data) {
@@ -32,6 +33,8 @@
                         qreview.ragrating = qr.RAGRating;
                         qreview.updatedate = new Date(qr.Modified);
                         qreview.updateby = _.isNil(qr.Editor) ? '' : { id: qr.Editor.Id, title: qr.Editor.Title };
+                        qreview.action = _.isNil(qr.PlanAction) ? "" : { id: qr.PlanAction.Id, title: qr.PlanAction.Title };
+                        qreview.year = _.isNil(qr.TargetYear) ? "" : { id: qr.TargetYear.Id, title: qr.TargetYear.Title };
                         qreviewsList.push(qreview);
                     });
                     deferQR.resolve(_.orderBy(qreviewsList, ['quarter'], ['asc']));
@@ -58,7 +61,9 @@
                     PlanQuarterId: review.quarter.id,
                     Review: review.review,
                     PlanActionYearTargetId: review.target.id,
-                    RAGRating: review.ragrating
+                    RAGRating: review.ragrating,
+                    PlanActionId: review.action.id,
+                    TargetYearId: review.year.id
                 };
 
                 ShptRestService
@@ -90,7 +95,9 @@
                     PlanQuarterId: review.quarter.id,
                     Review: review.review,
                     PlanActionYearTargetId: review.target.id,
-                    RAGRating: review.ragrating
+                    RAGRating: review.ragrating,
+                    PlanActionId: review.action.id,
+                    TargetYearId: review.year.id
                 };
 
                 ShptRestService
@@ -134,6 +141,36 @@
                 defer.reject('Item to be deleted is missing Id. Contact IT Service desk for support.');
             }
             return defer.promise;
+        };
+
+        svc.getQuarterRating = (actionid, yearid, quarterid) => {
+            var deferGQR = $q.defer();
+            var queryParams = "$select=Id,Title,PlanQuarter/Id,PlanQuarter/Title,PlanQuarter/Abbr,PlanActionYearTarget/Id,PlanActionYearTarget/Title,Review," +
+                "RAGRating,PlanAction/Id,PlanAction/Title,TargetYear/Id,TargetYear/Title&$expand=PlanQuarter,PlanActionYearTarget,PlanAction,TargetYear" +
+                "&$filter=PlanAction/Id eq " + actionid +" and TargetYear/Id eq " + yearid + " and PlanQuarter/Id eq " + quarterid;
+            ShptRestService
+                .getListItems(listname, queryParams)
+                .then(function (data) {
+                    qreviewsList = [];
+                    _.forEach(data.results, function (qr) {
+                        var qreview = {};
+                        qreview.id = qr.Id;
+                        qreview.title = qr.Title;
+                        qreview.target = _.isNil(qr.PlanActionYearTarget) ? "" : { id: qr.PlanActionYearTarget.Id, title: qr.PlanActionYearTarget.Title };
+                        qreview.quarter = _.isNil(qr.PlanQuarter) ? "" : { id: qr.PlanQuarter.Id, title: qr.PlanQuarter.Title, abbr: qr.PlanQuarter.Abbr };
+                        qreview.review = qr.Review;
+                        qreview.ragrating = qr.RAGRating;
+                        qreview.action = _.isNil(qr.PlanAction) ? "" : { id: qr.PlanAction.Id, title: qr.PlanAction.Title };
+                        qreview.year = _.isNil(qr.TargetYear) ? "" : { id: qr.TargetYear.Id, title: qr.TargetYear.Title };
+                        qreviewsList.push(qreview);
+                    });
+                    deferGQR.resolve(_.orderBy(qreviewsList, ['quarter'], ['asc']));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    deferGQR.reject(error);
+                });
+            return deferGQR.promise;
         };
     }
 })();

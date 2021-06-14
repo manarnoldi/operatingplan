@@ -36,6 +36,8 @@
     <script type="text/javascript" src="common/directives/pagination/dirPagination.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.71/pdfmake.min.js"></script>
+    <script type="text/javascript" src="common/vfs_fonts.js"></script>
     <script type="text/javascript" src="common/directives/ui-bootstrap-dialogs.js"></script>
     <script type="text/javascript" src="common/directives/multiselect/angularjs-dropdown-multiselect.js"></script>
     <script type="text/javascript" src="common/utilities/sp-ng-module.js"></script>
@@ -77,6 +79,7 @@
     <script type="text/javascript" src="app/adm-settings/settings.js"></script>
     <script type="text/javascript" src="app/planaction/planaction.js"></script>
     <script type="text/javascript" src="app/planactions/planactions.js"></script>
+    <script type="text/javascript" src="app/reports/reports.js"></script>
     <script type="text/javascript" src="app/planaction/planoutputs.js"></script>
     <script type="text/javascript" src="app/App.js"></script>
 </asp:Content>

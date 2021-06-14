@@ -80,7 +80,7 @@
     <Content Include="src\app\planaction\planaction.js" />
     <Content Include="src\app\planaction\planaction-update.html" />
     <Content Include="src\app\planaction\planoutputs.js" />
-    <Content Include="src\app\reports\reports.html" />
+    <Content Include="src\app\reports\reports.tpl.html" />
     <Content Include="src\app\reports\reports.js" />
     <Content Include="src\common\angular-datatables.min.js" />
     <Content Include="src\common\directives\add-btn\add-btn.dir.js" />
@@ -101,6 +101,7 @@
     <Content Include="src\common\directives\spinner\loading-spinner.js" />
     <Content Include="src\common\directives\ui-bootstrap-dialogs.js" />
     <Content Include="src\common\jquery.dataTables.min.js" />
+    <Content Include="src\common\pdfmake.min.js" />
     <Content Include="src\common\people-picker\sp-peoplepicker.min.css" />
     <Content Include="src\common\people-picker\sp-peoplepicker.min.js" />
     <Content Include="src\common\services\actiontargets.js" />
@@ -118,6 +119,7 @@
     <Content Include="src\common\services\settings.js" />
     <Content Include="src\common\utilities\sp-ng-module.js" />
     <Content Include="src\common\utilities\utilities.js" />
+    <Content Include="src\common\vfs_fonts.js" />
     <Content Include="src\css\angular-datatables.min.css" />
     <Content Include="src\css\angular-growl.min.css" />
     <Content Include="src\css\App.css" />
