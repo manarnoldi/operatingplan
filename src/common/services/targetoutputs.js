@@ -157,11 +157,11 @@
                                 svc.
                                     getAllItems(parseInt(output.target.id))
                                     .then(function (outs) {
-                                        defer.resolve(_.orderBy(outs, ['num'], ['asc']));
+                                        deferEdit.resolve(_.orderBy(outs, ['num'], ['asc']));
                                     })
                                     .catch(function (error) {
                                         console.log(error);
-                                        defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                                        deferEdit.reject("An error occured while adding the item. Contact IT Service desk for support.");
                                     });
                             })
                             .catch(function (error) {
@@ -171,7 +171,7 @@
                     })
                     .catch(function (error) {
                         console.log(error);
-                        defer.reject("An error occured while adding the item. Contact IT Service desk for support.");
+                        deferEdit.reject("An error occured while adding the item. Contact IT Service desk for support.");
                     });
             }
             return deferEdit.promise;
@@ -207,7 +207,7 @@
             var deferRemInd = $q.defer();
             if (individualId) {
                 var data = {
-                    IndividualResponsibleId: individualId
+                    IndividualResponsibleId: null
                 };
                 ShptRestService
                     .updateListItem(listname, outputId, data)

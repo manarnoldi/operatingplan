@@ -411,6 +411,7 @@
             output.num = out.num;
             output.responsible = out.responsible;
             output.id = out.id;
+            output.removeIndividual = ctrl.removeIndividual;
 
             var outputDW = { scopeVariableName: 'output', dataObject: output };
             $dialog('app/planaction/planaction-output.html', 'lg', outputDW)
@@ -435,14 +436,14 @@
                 });
         };
 
-        ctrl.removeIndividual = function (individualId, outputId) {
+        ctrl.removeIndividual = function (individualId, output) {
             $dialogConfirm('Remove user from target output?', 'Confirm Transaction')
                 .then(function () {
                     spinnerService.show('spinner1');
                     targetOutputsSvc
-                        .removeRespIndividual(individualId, outputId)
+                        .removeRespIndividual(individualId, output.target.id)
                         .then(function (res) {
-                            ctrl.outputs = res;
+                            output.responsible = null;
                             $dialogAlert('Individual removed from target output successfully!', 'Successful Transaction');
                         })
                         .catch(function (error) {

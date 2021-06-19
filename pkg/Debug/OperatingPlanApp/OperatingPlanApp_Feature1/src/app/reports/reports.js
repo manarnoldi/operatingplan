@@ -349,6 +349,5 @@
                 printQuarterlyReport(ctrl.plan.title + " Year " + ctrl.year.title + " " + ctrl.quarter.title + " Dashboard");
             }
         };
-
     }
 })();
