@@ -90,6 +90,7 @@
                                 y.title = year.title;
                                 y.startdate = year.startdate;
                                 y.enddate = year.enddate;
+                                y.active = year.active
                             }
                         });
                         deferEdit.resolve(yearsList, ['id', year.id]);

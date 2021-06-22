@@ -1,1 +1,1 @@
-C:\Users\HP\source\repos\OperatingPlanApp\bin\Debug\app.publish\1.1.0.2\OperatingPlanApp.app
+C:\Users\HP\source\repos\OperatingPlanApp\bin\Debug\app.publish\2.0.0.0\OperatingPlanApp.app
